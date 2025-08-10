@@ -1,13 +1,355 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import RootLayout from "@/layouts/RootLayout";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import { SEO } from "@/components/SEO";
+import { products, categories } from "@/data/products";
+import { Link, useLocation, useParams } from "react-router-dom";
+import { useMemo } from "react";
+import { useCart } from "@/context/CartContext";
 
-const Index = () => {
+import hero from "@/assets/hero-banner.jpg";
+
+type Props = { page?:
+  | "products"
+  | "product"
+  | "cart"
+  | "checkout"
+  | "orders"
+  | "admin"
+  | "auth" };
+
+const Index = ({ page }: Props) => {
+  const location = useLocation();
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
-    </div>
+    <RootLayout>
+      {(!page || page === undefined) && <Home />}
+      {page === "products" && <Listing />}
+      {page === "product" && <ProductDetailPage />}
+      {page === "cart" && <CartPage />}
+      {page === "checkout" && <CheckoutPage />}
+      {page === "orders" && <OrdersPage />}
+      {page === "admin" && <AdminPage />}
+      {page === "auth" && <AuthPage />}
+    </RootLayout>
+  );
+};
+
+const Home = () => {
+  const featured = products.filter((p) => p.featured).slice(0, 4);
+  return (
+    <>
+      <SEO title="Browse Boost — Premium Tech Deals" description="Shop featured gadgets, trending categories, and exclusive tech offers." canonicalPath="/" />
+      <section className="relative">
+        <div className="container mx-auto grid gap-8 py-10 md:grid-cols-2 md:items-center">
+          <div className="space-y-6">
+            <h1 className="text-4xl font-bold leading-tight md:text-5xl">
+              Upgrade your tech with premium gadgets
+            </h1>
+            <p className="text-muted-foreground text-lg">
+              Discover curated deals across audio, wearables, cameras, and smart home.
+            </p>
+            <div className="flex gap-3">
+              <Button asChild variant="hero" size="lg">
+                <Link to="/products">Shop now</Link>
+              </Button>
+              <Button asChild variant="outline" size="lg">
+                <Link to="/products">Browse categories</Link>
+              </Button>
+            </div>
+          </div>
+          <div className="relative">
+            <img src={hero} alt="Premium tech gadgets collage" className="w-full rounded-lg shadow-elegant" loading="eager" />
+            <div className="pointer-events-none absolute inset-0 rounded-lg bg-gradient-to-tr from-background/0 to-background/10" />
+          </div>
+        </div>
+      </section>
+
+      <section className="container mx-auto py-12">
+        <h2 className="mb-6 text-2xl font-semibold">Featured products</h2>
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {featured.map((p) => (
+            <ProductCard key={p.id} id={p.id} name={p.name} price={p.price} image={p.images[0]} slug={p.slug} />
+          ))}
+        </div>
+      </section>
+
+      <section className="container mx-auto py-12">
+        <h2 className="mb-6 text-2xl font-semibold">Shop by category</h2>
+        <div className="grid gap-3 grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
+          {categories.map((c) => (
+            <Link key={c} to={`/products?category=${encodeURIComponent(c)}`} className="rounded-md border bg-card px-4 py-6 text-center hover:bg-accent">
+              {c}
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      <section className="container mx-auto py-12">
+        <div className="rounded-xl border bg-gradient-surface p-8 shadow-elegant">
+          <div className="flex flex-col items-start gap-4 md:flex-row md:items-center md:justify-between">
+            <div>
+              <h3 className="text-xl font-semibold">Limited-time offers</h3>
+              <p className="text-muted-foreground">Save up to 40% on select accessories and audio gear.</p>
+            </div>
+            <Button variant="hero" asChild>
+              <Link to="/products?category=Accessories">Explore deals</Link>
+            </Button>
+          </div>
+        </div>
+      </section>
+    </>
+  );
+};
+
+const ProductCard = ({ id, name, price, image, slug }: { id: string; name: string; price: number; image: string; slug: string }) => (
+  <Link to={`/product/${slug}`} className="group">
+    <Card className="h-full overflow-hidden">
+      <CardContent className="p-0">
+        <div className="aspect-square overflow-hidden">
+          <img src={image} alt={`${name} product image`} className="h-full w-full object-cover transition-transform group-hover:scale-105" loading="lazy" />
+        </div>
+        <div className="space-y-1 p-4">
+          <h3 className="font-medium">{name}</h3>
+          <p className="text-primary font-semibold">${price.toFixed(2)}</p>
+        </div>
+      </CardContent>
+    </Card>
+  </Link>
+);
+
+const Listing = () => {
+  // Basic client-side filter/sort
+  const params = new URLSearchParams(window.location.search);
+  const cat = params.get("category") || "All";
+  const all = products;
+  const filtered = all.filter((p) => (cat === "All" ? true : p.category === cat));
+  return (
+    <>
+      <SEO title="Shop Products — Browse Boost" description="Explore our full catalog with filters and sorting." canonicalPath="/products" />
+      <section className="container mx-auto py-10">
+        <div className="mb-6 flex items-center justify-between">
+          <h1 className="text-3xl font-bold">Products</h1>
+          <div className="flex gap-2">
+            <Link to="/products" className={`px-3 py-1 ${cat === "All" ? "text-primary" : ""}`}>All</Link>
+            {categories.map((c) => (
+              <Link key={c} to={`/products?category=${encodeURIComponent(c)}`} className={`px-3 py-1 ${cat === c ? "text-primary" : ""}`}>
+                {c}
+              </Link>
+            ))}
+          </div>
+        </div>
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {filtered.map((p) => (
+            <ProductCard key={p.id} id={p.id} name={p.name} price={p.price} image={p.images[0]} slug={p.slug} />
+          ))}
+        </div>
+      </section>
+    </>
+  );
+};
+
+const ProductDetailPage = () => {
+  const { slug } = useParams();
+  const product = useMemo(() => products.find((p) => p.slug === slug), [slug]);
+  const { addToCart } = useCart();
+  if (!product) return null;
+  const related = products.filter((p) => p.category === product.category && p.id !== product.id).slice(0, 4);
+  return (
+    <>
+      <SEO title={`${product.name} — Browse Boost`} description={product.description} canonicalPath={`/product/${product.slug}`} />
+      <section className="container mx-auto grid gap-8 py-10 md:grid-cols-2">
+        <div>
+          <Carousel className="w-full" opts={{ loop: true }}>
+            <CarouselContent>
+              {product.images.map((img, idx) => (
+                <CarouselItem key={idx}>
+                  <div className="overflow-hidden rounded-md border">
+                    <img src={img} alt={`${product.name} view ${idx + 1}`} className="w-full object-cover" />
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious />
+            <CarouselNext />
+          </Carousel>
+        </div>
+        <div className="space-y-6">
+          <div>
+            <h1 className="text-3xl font-bold">{product.name}</h1>
+            <p className="text-muted-foreground">{product.brand} • {product.category}</p>
+          </div>
+          <p className="text-lg">{product.description}</p>
+          <p className="text-3xl font-semibold text-primary">${product.price.toFixed(2)}</p>
+          <div className="flex gap-3">
+            <Button variant="default" size="lg" onClick={() => addToCart(product, 1)}>Add to cart</Button>
+            <Button variant="outline" size="lg" asChild>
+              <Link to="/checkout">Buy now</Link>
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      <section className="container mx-auto py-12">
+        <h2 className="mb-6 text-2xl font-semibold">Related products</h2>
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {related.map((p) => (
+            <ProductCard key={p.id} id={p.id} name={p.name} price={p.price} image={p.images[0]} slug={p.slug} />
+          ))}
+        </div>
+      </section>
+    </>
+  );
+};
+
+const CartPage = () => {
+  const { items, updateQty, removeFromCart, subtotal } = useCart();
+  return (
+    <>
+      <SEO title="Your Cart — Browse Boost" description="Review your cart and proceed to checkout." canonicalPath="/cart" />
+      <section className="container mx-auto py-10">
+        <h1 className="mb-6 text-3xl font-bold">Shopping Cart</h1>
+        {items.length === 0 ? (
+          <p className="text-muted-foreground">Your cart is empty.</p>
+        ) : (
+          <div className="grid gap-8 md:grid-cols-[2fr_1fr]">
+            <div className="space-y-4">
+              {items.map(({ product, quantity }) => (
+                <div key={product.id} className="flex items-center gap-4 rounded-md border p-4">
+                  <img src={product.images[0]} alt={product.name} className="h-20 w-20 rounded object-cover" />
+                  <div className="flex-1">
+                    <Link to={`/product/${product.slug}`} className="font-medium hover:text-primary">{product.name}</Link>
+                    <p className="text-sm text-muted-foreground">${product.price.toFixed(2)}</p>
+                  </div>
+                  <input
+                    type="number"
+                    min={1}
+                    value={quantity}
+                    onChange={(e) => updateQty(product.id, parseInt(e.target.value) || 1)}
+                    className="w-16 rounded-md border px-2 py-1"
+                    aria-label="Quantity"
+                  />
+                  <Button variant="ghost" onClick={() => removeFromCart(product.id)}>Remove</Button>
+                </div>
+              ))}
+            </div>
+            <div className="rounded-md border p-4">
+              <p className="mb-2 text-muted-foreground">Subtotal</p>
+              <p className="mb-4 text-2xl font-semibold">${subtotal.toFixed(2)}</p>
+              <Button asChild variant="hero" className="w-full">
+                <Link to="/checkout">Proceed to checkout</Link>
+              </Button>
+            </div>
+          </div>
+        )}
+      </section>
+    </>
+  );
+};
+
+const CheckoutPage = () => {
+  const { items, subtotal, clear } = useCart();
+  return (
+    <>
+      <SEO title="Checkout — Browse Boost" description="Enter shipping details and complete your order." canonicalPath="/checkout" />
+      <section className="container mx-auto grid gap-8 py-10 md:grid-cols-[2fr_1fr]">
+        <form className="space-y-4">
+          <h1 className="text-3xl font-bold">Checkout</h1>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <input className="rounded-md border px-3 py-2" placeholder="First name" required />
+            <input className="rounded-md border px-3 py-2" placeholder="Last name" required />
+          </div>
+          <input className="w-full rounded-md border px-3 py-2" placeholder="Email" type="email" required />
+          <input className="w-full rounded-md border px-3 py-2" placeholder="Address" required />
+          <div className="grid gap-4 sm:grid-cols-3">
+            <input className="rounded-md border px-3 py-2" placeholder="City" required />
+            <input className="rounded-md border px-3 py-2" placeholder="State" required />
+            <input className="rounded-md border px-3 py-2" placeholder="ZIP" required />
+          </div>
+          <div className="space-y-2">
+            <p className="text-sm text-muted-foreground">Payment method</p>
+            <div className="flex flex-wrap gap-2">
+              <Button type="button" variant="outline">PayPal</Button>
+              <Button type="button" variant="outline">Stripe</Button>
+              <Button type="button" variant="outline">Razorpay</Button>
+            </div>
+          </div>
+          <Button type="button" variant="hero" onClick={() => { alert("Order placed! (demo)"); clear(); }}>
+            Place order
+          </Button>
+        </form>
+        <aside className="rounded-md border p-4">
+          <h2 className="mb-2 text-xl font-semibold">Order summary</h2>
+          <ul className="space-y-2">
+            {items.map(({ product, quantity }) => (
+              <li key={product.id} className="flex justify-between text-sm">
+                <span>
+                  {product.name} × {quantity}
+                </span>
+                <span>${(product.price * quantity).toFixed(2)}</span>
+              </li>
+            ))}
+          </ul>
+          <div className="mt-4 border-t pt-4">
+            <div className="flex justify-between">
+              <span>Subtotal</span>
+              <span>${subtotal.toFixed(2)}</span>
+            </div>
+          </div>
+        </aside>
+      </section>
+    </>
+  );
+};
+
+const OrdersPage = () => {
+  return (
+    <>
+      <SEO title="Your Orders — Browse Boost" description="Track your past orders and statuses." canonicalPath="/orders" />
+      <section className="container mx-auto py-10">
+        <h1 className="mb-6 text-3xl font-bold">Order History</h1>
+        <p className="text-muted-foreground">Sign in to view your orders. (Demo placeholder)</p>
+      </section>
+    </>
+  );
+};
+
+const AdminPage = () => {
+  return (
+    <>
+      <SEO title="Admin Dashboard — Browse Boost" description="Manage products, orders, categories, and users." canonicalPath="/admin" />
+      <section className="container mx-auto py-10">
+        <h1 className="mb-6 text-3xl font-bold">Admin Dashboard</h1>
+        <p className="text-muted-foreground">This is a demo UI only. Connect a backend to enable full CRUD.</p>
+      </section>
+    </>
+  );
+};
+
+const AuthPage = () => {
+  return (
+    <>
+      <SEO title="Sign in — Browse Boost" description="Access your account or create a new one." canonicalPath="/auth" />
+      <section className="container mx-auto grid gap-8 py-10 md:grid-cols-2">
+        <div>
+          <h1 className="mb-4 text-3xl font-bold">Welcome back</h1>
+          <form className="space-y-3">
+            <input className="w-full rounded-md border px-3 py-2" placeholder="Email" type="email" required />
+            <input className="w-full rounded-md border px-3 py-2" placeholder="Password" type="password" required />
+            <Button type="button" variant="default" className="w-full">Sign in</Button>
+          </form>
+        </div>
+        <div>
+          <h2 className="mb-4 text-2xl font-semibold">Create an account</h2>
+          <form className="space-y-3">
+            <input className="w-full rounded-md border px-3 py-2" placeholder="Full name" required />
+            <input className="w-full rounded-md border px-3 py-2" placeholder="Email" type="email" required />
+            <input className="w-full rounded-md border px-3 py-2" placeholder="Password" type="password" required />
+            <Button type="button" variant="outline" className="w-full">Sign up</Button>
+          </form>
+        </div>
+      </section>
+    </>
   );
 };
 
