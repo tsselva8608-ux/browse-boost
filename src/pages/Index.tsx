@@ -5,10 +5,12 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import { SEO } from "@/components/SEO";
 import { products, categories } from "@/data/products";
 import { Link, useLocation, useParams } from "react-router-dom";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useCart } from "@/context/CartContext";
 
 import hero from "@/assets/hero-banner.jpg";
+import { Textarea } from "@/components/ui/textarea";
+import QRCode from "react-qr-code";
 
 type Props = { page?:
   | "products"
@@ -248,7 +250,9 @@ const CartPage = () => {
 };
 
 const CheckoutPage = () => {
-  const { items, subtotal, clear } = useCart();
+  const { items, subtotal, clear, note, setNote } = useCart();
+  const [paymentMethod, setPaymentMethod] = useState<"paypal" | "stripe" | "razorpay" | "qr">("paypal");
+  const [paymentLink, setPaymentLink] = useState<string>("");
   return (
     <>
       <SEO title="Checkout — Browse Boost" description="Enter shipping details and complete your order." canonicalPath="/checkout" />
@@ -266,15 +270,56 @@ const CheckoutPage = () => {
             <input className="rounded-md border px-3 py-2" placeholder="State" required />
             <input className="rounded-md border px-3 py-2" placeholder="ZIP" required />
           </div>
+
+          <div className="space-y-2">
+            <label className="text-sm font-medium">Customer comment</label>
+            <Textarea
+              value={note}
+              onChange={(e) => setNote(e.target.value)}
+              placeholder="Any notes for your order (e.g., ring the bell, extra spicy, etc.)"
+            />
+          </div>
+
           <div className="space-y-2">
             <p className="text-sm text-muted-foreground">Payment method</p>
             <div className="flex flex-wrap gap-2">
-              <Button type="button" variant="outline">PayPal</Button>
-              <Button type="button" variant="outline">Stripe</Button>
-              <Button type="button" variant="outline">Razorpay</Button>
+              <Button type="button" variant={paymentMethod === "paypal" ? "default" : "outline"} onClick={() => setPaymentMethod("paypal")}>PayPal</Button>
+              <Button type="button" variant={paymentMethod === "stripe" ? "default" : "outline"} onClick={() => setPaymentMethod("stripe")}>Stripe</Button>
+              <Button type="button" variant={paymentMethod === "razorpay" ? "default" : "outline"} onClick={() => setPaymentMethod("razorpay")}>Razorpay</Button>
+              <Button type="button" variant={paymentMethod === "qr" ? "default" : "outline"} onClick={() => setPaymentMethod("qr")}>QR Code</Button>
             </div>
+            {paymentMethod === "qr" && (
+              <div className="space-y-3 rounded-md border p-4">
+                <div className="space-y-2">
+                  <label className="text-sm font-medium">Payment link or UPI ID</label>
+                  <input
+                    className="w-full rounded-md border px-3 py-2"
+                    placeholder="Paste payment URL or enter UPI ID"
+                    value={paymentLink}
+                    onChange={(e) => setPaymentLink(e.target.value)}
+                  />
+                </div>
+                <div className="flex items-center gap-4">
+                  <div className="rounded-md border bg-card p-3">
+                    <QRCode value={paymentLink || `Amount: $${subtotal.toFixed(2)}`} size={120} />
+                  </div>
+                  <p className="text-sm text-muted-foreground">
+                    Share or display this QR to accept payment. Configure your actual payment link later.
+                  </p>
+                </div>
+              </div>
+            )}
           </div>
-          <Button type="button" variant="hero" onClick={() => { alert("Order placed! (demo)"); clear(); }}>
+
+          <Button
+            type="button"
+            variant="hero"
+            onClick={() => {
+              alert("Order placed! (demo)");
+              setNote("");
+              clear();
+            }}
+          >
             Place order
           </Button>
         </form>

@@ -99,6 +99,45 @@ export const products: Product[] = [
     description:
       "Smart RGB lighting with app control, scenes, and voice assistant support.",
   },
+  {
+    id: "p7",
+    slug: "turmeric-powder-250g",
+    name: "Turmeric Powder 250g",
+    brand: "SpiceCo",
+    category: "Spices",
+    price: 4.99,
+    rating: 4.7,
+    reviews: 154,
+    images: [product1, product2, product3],
+    description:
+      "Premium ground turmeric—rich color and aroma. Perfect for curries and wellness drinks.",
+  },
+  {
+    id: "p8",
+    slug: "red-chili-powder-200g",
+    name: "Red Chili Powder 200g",
+    brand: "SpiceCo",
+    category: "Spices",
+    price: 3.49,
+    rating: 4.5,
+    reviews: 201,
+    images: [product2, product3, product1],
+    description:
+      "Fiery and flavorful chili powder for vibrant heat in your dishes.",
+  },
+  {
+    id: "p9",
+    slug: "cumin-seeds-250g",
+    name: "Cumin Seeds 250g",
+    brand: "SpiceCo",
+    category: "Spices",
+    price: 2.99,
+    rating: 4.6,
+    reviews: 132,
+    images: [product3, product1, product2],
+    description:
+      "Whole cumin seeds with warm, earthy aroma—ideal for tempering and spice blends.",
+  },
 ];
 
 export const categories = [
@@ -107,6 +146,7 @@ export const categories = [
   "Cameras",
   "Accessories",
   "Smart Home",
+  "Spices",
 ] as const;
 
 export const brands = [
@@ -116,4 +156,5 @@ export const brands = [
   "Keystorm",
   "Flux",
   "Halo",
+  "SpiceCo",
 ] as const;

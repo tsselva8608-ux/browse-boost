@@ -11,6 +11,8 @@ type CartContextType = {
   clear: () => void;
   subtotal: number;
   count: number;
+  note: string;
+  setNote: (note: string) => void;
 };
 
 const CartContext = createContext<CartContextType | null>(null);
@@ -21,7 +23,7 @@ export const useCart = () => {
   return ctx;
 };
 
-const LS_KEY = "bb_cart_v1";
+const LS_KEY = "bb_cart_v1"; const LS_NOTE_KEY = "bb_cart_note_v1";
 
 export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [items, setItems] = useState<CartItem[]>(() => {
@@ -33,9 +35,21 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   });
 
+  const [note, setNote] = useState<string>(() => {
+    try {
+      return localStorage.getItem(LS_NOTE_KEY) ?? "";
+    } catch {
+      return "";
+    }
+  });
+
   useEffect(() => {
     localStorage.setItem(LS_KEY, JSON.stringify(items));
   }, [items]);
+
+  useEffect(() => {
+    localStorage.setItem(LS_NOTE_KEY, note);
+  }, [note]);
 
   const addToCart = (product: Product, qty: number = 1) => {
     setItems((prev) => {
@@ -67,6 +81,6 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     return { subtotal, count };
   }, [items]);
 
-  const value: CartContextType = { items, addToCart, removeFromCart, updateQty, clear, subtotal, count };
+  const value: CartContextType = { items, addToCart, removeFromCart, updateQty, clear, subtotal, count, note, setNote };
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 };
