@@ -5,7 +5,7 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import { SEO } from "@/components/SEO";
 import { products, categories } from "@/data/products";
 import { Link, useLocation, useParams } from "react-router-dom";
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { useCart } from "@/context/CartContext";
 
 import hero from "@/assets/hero-banner.jpg";
@@ -184,9 +184,35 @@ const ProductDetailPage = () => {
           <p className="text-lg">{product.description}</p>
           <p className="text-3xl font-semibold text-primary">${product.price.toFixed(2)}</p>
           <div className="flex gap-3">
-            <Button variant="default" size="lg" onClick={() => addToCart(product, 1)}>Add to cart</Button>
-            <Button variant="outline" size="lg" asChild>
-              <Link to="/checkout">Buy now</Link>
+            <Button 
+              variant="default" 
+              size="lg" 
+              onClick={() => {
+                const user = localStorage.getItem('bb_user');
+                if (!user) {
+                  alert('Please sign in to add items to cart');
+                  window.location.href = '/auth';
+                  return;
+                }
+                addToCart(product, 1);
+              }}
+            >
+              Add to cart
+            </Button>
+            <Button 
+              variant="outline" 
+              size="lg" 
+              onClick={() => {
+                const user = localStorage.getItem('bb_user');
+                if (!user) {
+                  alert('Please sign in to make a purchase');
+                  window.location.href = '/auth';
+                  return;
+                }
+                window.location.href = '/checkout';
+              }}
+            >
+              Buy now
             </Button>
           </div>
         </div>
@@ -253,6 +279,16 @@ const CheckoutPage = () => {
   const { items, subtotal, clear, note, setNote } = useCart();
   const [paymentMethod, setPaymentMethod] = useState<"paypal" | "stripe" | "razorpay" | "qr">("paypal");
   const [paymentLink, setPaymentLink] = useState<string>("");
+  
+  useEffect(() => {
+    // Check if user is logged in
+    const user = localStorage.getItem('bb_user');
+    if (!user) {
+      alert('Please sign in to access checkout');
+      window.location.href = '/auth';
+    }
+  }, []);
+  
   return (
     <>
       <SEO title="Checkout — Browse Boost" description="Enter shipping details and complete your order." canonicalPath="/checkout" />
@@ -372,26 +408,122 @@ const AdminPage = () => {
 };
 
 const AuthPage = () => {
+  const [isLogin, setIsLogin] = useState(true);
+  const [user, setUser] = useState<any>(null);
+
+  useEffect(() => {
+    // Check if user is already logged in
+    const storedUser = localStorage.getItem('bb_user');
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
+
+  const handleAuth = (e: React.FormEvent, isLoginForm: boolean) => {
+    e.preventDefault();
+    const formData = new FormData(e.target as HTMLFormElement);
+    const email = formData.get('email') as string;
+    
+    // Mock authentication - store user data
+    const userData = { email, name: formData.get('name') || email.split('@')[0] };
+    localStorage.setItem('bb_user', JSON.stringify(userData));
+    setUser(userData);
+    
+    // Redirect to home page
+    window.location.href = '/';
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('bb_user');
+    setUser(null);
+  };
+
+  if (user) {
+    return (
+      <>
+        <SEO title="Account — Browse Boost" description="Manage your account." canonicalPath="/auth" />
+        <section className="min-h-screen bg-gradient-surface">
+          <div className="container mx-auto py-20">
+            <div className="mx-auto max-w-md text-center">
+              <h1 className="mb-4 text-3xl font-bold">Welcome, {user.name}!</h1>
+              <p className="mb-6 text-muted-foreground">You are successfully logged in.</p>
+              <div className="space-y-3">
+                <Button asChild className="w-full">
+                  <Link to="/">Continue Shopping</Link>
+                </Button>
+                <Button variant="outline" className="w-full" onClick={handleLogout}>
+                  Sign Out
+                </Button>
+              </div>
+            </div>
+          </div>
+        </section>
+      </>
+    );
+  }
+
   return (
     <>
       <SEO title="Sign in — Browse Boost" description="Access your account or create a new one." canonicalPath="/auth" />
-      <section className="container mx-auto grid gap-8 py-10 md:grid-cols-2">
-        <div>
-          <h1 className="mb-4 text-3xl font-bold">Welcome back</h1>
-          <form className="space-y-3">
-            <input className="w-full rounded-md border px-3 py-2" placeholder="Email" type="email" required />
-            <input className="w-full rounded-md border px-3 py-2" placeholder="Password" type="password" required />
-            <Button type="button" variant="default" className="w-full">Sign in</Button>
-          </form>
-        </div>
-        <div>
-          <h2 className="mb-4 text-2xl font-semibold">Create an account</h2>
-          <form className="space-y-3">
-            <input className="w-full rounded-md border px-3 py-2" placeholder="Full name" required />
-            <input className="w-full rounded-md border px-3 py-2" placeholder="Email" type="email" required />
-            <input className="w-full rounded-md border px-3 py-2" placeholder="Password" type="password" required />
-            <Button type="button" variant="outline" className="w-full">Sign up</Button>
-          </form>
+      <section className="min-h-screen bg-gradient-surface">
+        <div className="container mx-auto py-20">
+          <div className="mx-auto max-w-md">
+            <div className="mb-6 text-center">
+              <h1 className="mb-2 text-3xl font-bold">{isLogin ? 'Welcome back' : 'Create account'}</h1>
+              <p className="text-muted-foreground">
+                {isLogin ? 'Sign in to your account' : 'Join us to start shopping'}
+              </p>
+            </div>
+
+            <div className="rounded-lg border bg-card p-6 shadow-elegant">
+              <form onSubmit={(e) => handleAuth(e, isLogin)} className="space-y-4">
+                {!isLogin && (
+                  <div>
+                    <label className="block text-sm font-medium mb-1">Full Name</label>
+                    <input 
+                      name="name"
+                      className="w-full rounded-md border border-input bg-background px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary" 
+                      placeholder="Enter your full name" 
+                      required 
+                    />
+                  </div>
+                )}
+                <div>
+                  <label className="block text-sm font-medium mb-1">Email</label>
+                  <input 
+                    name="email"
+                    className="w-full rounded-md border border-input bg-background px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary" 
+                    placeholder="Enter your email" 
+                    type="email" 
+                    required 
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium mb-1">Password</label>
+                  <input 
+                    name="password"
+                    className="w-full rounded-md border border-input bg-background px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary" 
+                    placeholder="Enter your password" 
+                    type="password" 
+                    required 
+                  />
+                </div>
+                <Button type="submit" className="w-full">
+                  {isLogin ? 'Sign In' : 'Create Account'}
+                </Button>
+              </form>
+
+              <div className="mt-4 text-center">
+                <button
+                  type="button"
+                  onClick={() => setIsLogin(!isLogin)}
+                  className="text-sm text-primary hover:underline"
+                >
+                  {isLogin ? 'Need an account? Sign up' : 'Already have an account? Sign in'}
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
     </>
