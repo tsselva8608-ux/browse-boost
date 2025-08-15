@@ -113,7 +113,7 @@ const ProductCard = ({ id, name, price, image, slug }: { id: string; name: strin
         </div>
         <div className="space-y-1 p-4">
           <h3 className="font-medium">{name}</h3>
-          <p className="text-primary font-semibold">${price.toFixed(2)}</p>
+          <p className="text-primary font-semibold">₹{price.toLocaleString()}</p>
         </div>
       </CardContent>
     </Card>
@@ -182,7 +182,7 @@ const ProductDetailPage = () => {
             <p className="text-muted-foreground">{product.brand} • {product.category}</p>
           </div>
           <p className="text-lg">{product.description}</p>
-          <p className="text-3xl font-semibold text-primary">${product.price.toFixed(2)}</p>
+          <p className="text-3xl font-semibold text-primary">₹{product.price.toLocaleString()}</p>
           <div className="flex gap-3">
             <Button 
               variant="default" 
@@ -247,7 +247,7 @@ const CartPage = () => {
                   <img src={product.images[0]} alt={product.name} className="h-20 w-20 rounded object-cover" />
                   <div className="flex-1">
                     <Link to={`/product/${product.slug}`} className="font-medium hover:text-primary">{product.name}</Link>
-                    <p className="text-sm text-muted-foreground">${product.price.toFixed(2)}</p>
+                    <p className="text-sm text-muted-foreground">₹{product.price.toLocaleString()}</p>
                   </div>
                   <input
                     type="number"
@@ -263,7 +263,7 @@ const CartPage = () => {
             </div>
             <div className="rounded-md border p-4">
               <p className="mb-2 text-muted-foreground">Subtotal</p>
-              <p className="mb-4 text-2xl font-semibold">${subtotal.toFixed(2)}</p>
+              <p className="mb-4 text-2xl font-semibold">₹{subtotal.toLocaleString()}</p>
               <Button asChild variant="hero" className="w-full">
                 <Link to="/checkout">Proceed to checkout</Link>
               </Button>
@@ -337,7 +337,7 @@ const CheckoutPage = () => {
                 </div>
                 <div className="flex items-center gap-4">
                   <div className="rounded-md border bg-card p-3">
-                    <QRCode value={paymentLink || `Amount: $${subtotal.toFixed(2)}`} size={120} />
+                    <QRCode value={paymentLink || `Amount: ₹${subtotal.toLocaleString()}`} size={120} />
                   </div>
                   <p className="text-sm text-muted-foreground">
                     Share or display this QR to accept payment. Configure your actual payment link later.
@@ -367,14 +367,14 @@ const CheckoutPage = () => {
                 <span>
                   {product.name} × {quantity}
                 </span>
-                <span>${(product.price * quantity).toFixed(2)}</span>
+                <span>₹{(product.price * quantity).toLocaleString()}</span>
               </li>
             ))}
           </ul>
           <div className="mt-4 border-t pt-4">
             <div className="flex justify-between">
               <span>Subtotal</span>
-              <span>${subtotal.toFixed(2)}</span>
+              <span>₹{subtotal.toLocaleString()}</span>
             </div>
           </div>
         </aside>
