@@ -442,7 +442,7 @@ const AuthPage = () => {
     return (
       <>
         <SEO title="Account — Browse Boost" description="Manage your account." canonicalPath="/auth" />
-        <section className="min-h-screen bg-gradient-surface">
+        <section className="min-h-screen bg-gradient-primary">
           <div className="container mx-auto py-20">
             <div className="mx-auto max-w-md text-center">
               <h1 className="mb-4 text-3xl font-bold">Welcome, {user.name}!</h1>
@@ -465,7 +465,7 @@ const AuthPage = () => {
   return (
     <>
       <SEO title="Sign in — Browse Boost" description="Access your account or create a new one." canonicalPath="/auth" />
-      <section className="min-h-screen bg-gradient-surface">
+      <section className="min-h-screen bg-gradient-primary">
         <div className="container mx-auto py-20">
           <div className="mx-auto max-w-md">
             <div className="mb-6 text-center">
