@@ -11,6 +11,7 @@ import { useCart } from "@/context/CartContext";
 import hero from "@/assets/hero-banner.jpg";
 import { Textarea } from "@/components/ui/textarea";
 import QRCode from "react-qr-code";
+import { VoiceAssistant } from "@/components/VoiceAssistant";
 
 type Props = { page?:
   | "products"
@@ -33,6 +34,7 @@ const Index = ({ page }: Props) => {
       {page === "orders" && <OrdersPage />}
       {page === "admin" && <AdminPage />}
       {page === "auth" && <AuthPage />}
+      <VoiceAssistant onMessage={(msg) => console.log('Voice message:', msg)} />
     </RootLayout>
   );
 };

@@ -12,10 +12,16 @@ export type Product = {
   featured?: boolean;
 };
 
-// Images will be generated/added separately; using imports for strong typing once available
-import product1 from "@/assets/product-1.jpg";
-import product2 from "@/assets/product-2.jpg";
-import product3 from "@/assets/product-3.jpg";
+// Product-specific images
+import quantumHeadphones from "@/assets/quantum-headphones.jpg";
+import auroraSmartwatch from "@/assets/aurora-smartwatch.jpg";
+import voltaCamera from "@/assets/volta-camera.jpg";
+import novaKeyboard from "@/assets/nova-keyboard.jpg";
+import ionHub from "@/assets/ion-hub.jpg";
+import lumenLamp from "@/assets/lumen-lamp.jpg";
+import turmericPowder from "@/assets/turmeric-powder.jpg";
+import chiliPowder from "@/assets/chili-powder.jpg";
+import cuminSeeds from "@/assets/cumin-seeds.jpg";
 
 export const products: Product[] = [
   {
@@ -27,7 +33,7 @@ export const products: Product[] = [
     price: 12499,
     rating: 4.6,
     reviews: 321,
-    images: [product1, product2, product3],
+    images: [quantumHeadphones],
     description:
       "Experience immersive sound with active noise cancellation, 40-hour battery life, and ultra-low latency for gaming and streaming.",
     featured: true,
@@ -41,7 +47,7 @@ export const products: Product[] = [
     price: 16499,
     rating: 4.4,
     reviews: 210,
-    images: [product2, product3, product1],
+    images: [auroraSmartwatch],
     description:
       "Track fitness, sleep, and heart rate with a stunning AMOLED display and 7-day battery life.",
     featured: true,
@@ -55,7 +61,7 @@ export const products: Product[] = [
     price: 20699,
     rating: 4.2,
     reviews: 88,
-    images: [product3, product1, product2],
+    images: [voltaCamera],
     description:
       "Capture your adventures in crisp 4K with advanced stabilization and waterproof housing.",
   },
@@ -68,7 +74,7 @@ export const products: Product[] = [
     price: 10799,
     rating: 4.8,
     reviews: 512,
-    images: [product1, product3, product2],
+    images: [novaKeyboard],
     description:
       "Hot-swappable switches, per-key RGB, and a premium aluminum chassis for a dream typing experience.",
     featured: true,
@@ -82,7 +88,7 @@ export const products: Product[] = [
     price: 6649,
     rating: 4.1,
     reviews: 67,
-    images: [product2, product1, product3],
+    images: [ionHub],
     description:
       "Expand your laptop's potential with HDMI 4K, SD, USB-A, and PD charging in a compact design.",
   },
@@ -95,7 +101,7 @@ export const products: Product[] = [
     price: 4899,
     rating: 4.3,
     reviews: 138,
-    images: [product3, product2, product1],
+    images: [lumenLamp],
     description:
       "Smart RGB lighting with app control, scenes, and voice assistant support.",
   },
@@ -108,7 +114,7 @@ export const products: Product[] = [
     price: 415,
     rating: 4.7,
     reviews: 154,
-    images: [product1, product2, product3],
+    images: [turmericPowder],
     description:
       "Premium ground turmeric—rich color and aroma. Perfect for curries and wellness drinks.",
   },
@@ -121,7 +127,7 @@ export const products: Product[] = [
     price: 290,
     rating: 4.5,
     reviews: 201,
-    images: [product2, product3, product1],
+    images: [chiliPowder],
     description:
       "Fiery and flavorful chili powder for vibrant heat in your dishes.",
   },
@@ -134,7 +140,7 @@ export const products: Product[] = [
     price: 249,
     rating: 4.6,
     reviews: 132,
-    images: [product3, product1, product2],
+    images: [cuminSeeds],
     description:
       "Whole cumin seeds with warm, earthy aroma—ideal for tempering and spice blends.",
   },
