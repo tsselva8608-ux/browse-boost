@@ -39,6 +39,15 @@ const Index = ({ page }: Props) => {
 
 const Home = () => {
   const featured = products.filter((p) => p.featured).slice(0, 4);
+  
+  useEffect(() => {
+    // Check if user is logged in, redirect to auth if not
+    const user = localStorage.getItem('bb_user');
+    if (!user) {
+      window.location.href = '/auth';
+    }
+  }, []);
+  
   return (
     <>
       <SEO title="Browse Boost — Premium Tech Deals" description="Shop featured gadgets, trending categories, and exclusive tech offers." canonicalPath="/" />
