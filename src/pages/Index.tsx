@@ -3,10 +3,13 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { SEO } from "@/components/SEO";
-import { products, categories } from "@/data/products";
+import { products, categories, Product } from "@/data/products";
 import { Link, useLocation, useParams } from "react-router-dom";
 import { useMemo, useState, useEffect } from "react";
 import { useCart } from "@/context/CartContext";
+import { ProductCard } from "@/components/ProductCard";
+import { ProductFilters, FilterState } from "@/components/ProductFilters";
+import { Star } from "lucide-react";
 
 import hero from "@/assets/hero-banner.jpg";
 import { Textarea } from "@/components/ui/textarea";
@@ -82,7 +85,7 @@ const Home = () => {
         <h2 className="mb-6 text-2xl font-semibold">Featured products</h2>
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {featured.map((p) => (
-            <ProductCard key={p.id} id={p.id} name={p.name} price={p.price} image={p.images[0]} slug={p.slug} />
+            <ProductCard key={p.id} product={p} showOffer={true} />
           ))}
         </div>
       </section>
@@ -115,48 +118,122 @@ const Home = () => {
   );
 };
 
-const ProductCard = ({ id, name, price, image, slug }: { id: string; name: string; price: number; image: string; slug: string }) => (
-  <Link to={`/product/${slug}`} className="group">
-    <Card className="h-full overflow-hidden">
-      <CardContent className="p-0">
-        <div className="aspect-square overflow-hidden">
-          <img src={image} alt={`${name} product image`} className="h-full w-full object-cover transition-transform group-hover:scale-105" loading="lazy" />
-        </div>
-        <div className="space-y-1 p-4">
-          <h3 className="font-medium">{name}</h3>
-          <p className="text-primary font-semibold">₹{price.toLocaleString()}</p>
-        </div>
-      </CardContent>
-    </Card>
-  </Link>
-);
+// ProductCard component moved to separate file
 
 const Listing = () => {
-  // Basic client-side filter/sort
   const params = new URLSearchParams(window.location.search);
-  const cat = params.get("category") || "All";
-  const all = products;
-  const filtered = all.filter((p) => (cat === "All" ? true : p.category === cat));
+  const searchQuery = params.get("search") || "";
+  
+  const [filters, setFilters] = useState<FilterState>({
+    category: params.get("category") || "all",
+    brand: "all",
+    sortBy: "featured",
+    minPrice: "",
+    maxPrice: ""
+  });
+
+  const handleFilterChange = (key: keyof FilterState, value: string) => {
+    setFilters(prev => ({ ...prev, [key]: value }));
+  };
+
+  const clearFilters = () => {
+    setFilters({
+      category: "all",
+      brand: "all", 
+      sortBy: "featured",
+      minPrice: "",
+      maxPrice: ""
+    });
+  };
+
+  const filteredProducts = useMemo(() => {
+    let filtered = [...products];
+
+    // Search filter
+    if (searchQuery) {
+      filtered = filtered.filter(p => 
+        p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        p.brand.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        p.category.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }
+
+    // Category filter
+    if (filters.category !== "all") {
+      filtered = filtered.filter(p => p.category === filters.category);
+    }
+
+    // Brand filter
+    if (filters.brand !== "all") {
+      filtered = filtered.filter(p => p.brand === filters.brand);
+    }
+
+    // Price filters
+    if (filters.minPrice) {
+      filtered = filtered.filter(p => p.price >= parseInt(filters.minPrice));
+    }
+    if (filters.maxPrice) {
+      filtered = filtered.filter(p => p.price <= parseInt(filters.maxPrice));
+    }
+
+    // Sort
+    switch (filters.sortBy) {
+      case "name-asc":
+        filtered.sort((a, b) => a.name.localeCompare(b.name));
+        break;
+      case "name-desc":
+        filtered.sort((a, b) => b.name.localeCompare(a.name));
+        break;
+      case "price-asc":
+        filtered.sort((a, b) => a.price - b.price);
+        break;
+      case "price-desc":
+        filtered.sort((a, b) => b.price - a.price);
+        break;
+      case "rating-desc":
+        filtered.sort((a, b) => b.rating - a.rating);
+        break;
+      case "featured":
+        filtered.sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
+        break;
+    }
+
+    return filtered;
+  }, [filters, searchQuery]);
+
   return (
     <>
       <SEO title="Shop Products — Browse Boost" description="Explore our full catalog with filters and sorting." canonicalPath="/products" />
       <section className="container mx-auto py-10">
-        <div className="mb-6 flex items-center justify-between">
-          <h1 className="text-3xl font-bold">Products</h1>
-          <div className="flex gap-2">
-            <Link to="/products" className={`px-3 py-1 ${cat === "All" ? "text-primary" : ""}`}>All</Link>
-            {categories.map((c) => (
-              <Link key={c} to={`/products?category=${encodeURIComponent(c)}`} className={`px-3 py-1 ${cat === c ? "text-primary" : ""}`}>
-                {c}
-              </Link>
-            ))}
-          </div>
+        <div className="mb-6">
+          <h1 className="text-3xl font-bold mb-4">Products</h1>
+          {searchQuery && (
+            <p className="text-muted-foreground mb-4">
+              Search results for "{searchQuery}"
+            </p>
+          )}
+          <ProductFilters
+            filters={filters}
+            onFilterChange={handleFilterChange}
+            onClearFilters={clearFilters}
+            productCount={filteredProducts.length}
+          />
         </div>
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {filtered.map((p) => (
-            <ProductCard key={p.id} id={p.id} name={p.name} price={p.price} image={p.images[0]} slug={p.slug} />
+        
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          {filteredProducts.map((p) => (
+            <ProductCard key={p.id} product={p} showOffer={Math.random() > 0.7} />
           ))}
         </div>
+        
+        {filteredProducts.length === 0 && (
+          <div className="text-center py-12">
+            <p className="text-muted-foreground">No products found matching your criteria.</p>
+            <Button onClick={clearFilters} variant="outline" className="mt-4">
+              Clear filters
+            </Button>
+          </div>
+        )}
       </section>
     </>
   );
@@ -192,8 +269,41 @@ const ProductDetailPage = () => {
             <h1 className="text-3xl font-bold">{product.name}</h1>
             <p className="text-muted-foreground">{product.brand} • {product.category}</p>
           </div>
+          
+          {/* Star Rating */}
+          <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1">
+              {[...Array(5)].map((_, i) => (
+                <Star
+                  key={i}
+                  className={`h-5 w-5 ${
+                    i < Math.floor(product.rating)
+                      ? "fill-yellow-400 text-yellow-400"
+                      : "text-gray-300"
+                  }`}
+                />
+              ))}
+            </div>
+            <span className="font-medium">{product.rating}</span>
+            <span className="text-muted-foreground">({product.reviews} reviews)</span>
+          </div>
+          
           <p className="text-lg">{product.description}</p>
-          <p className="text-3xl font-semibold text-primary">₹{product.price.toLocaleString()}</p>
+          
+          {/* Price with potential offer */}
+          <div className="flex items-center gap-3">
+            <p className="text-3xl font-semibold text-primary">₹{product.price.toLocaleString()}</p>
+            {Math.random() > 0.5 && (
+              <div className="flex items-center gap-2">
+                <p className="text-lg text-muted-foreground line-through">
+                  ₹{Math.floor(product.price * 1.2).toLocaleString()}
+                </p>
+                <span className="bg-red-500 text-white px-2 py-1 rounded text-sm font-medium">
+                  {Math.floor(Math.random() * 25) + 10}% OFF
+                </span>
+              </div>
+            )}
+          </div>
           <div className="flex gap-3">
             <Button 
               variant="default" 
@@ -233,7 +343,7 @@ const ProductDetailPage = () => {
         <h2 className="mb-6 text-2xl font-semibold">Related products</h2>
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {related.map((p) => (
-            <ProductCard key={p.id} id={p.id} name={p.name} price={p.price} image={p.images[0]} slug={p.slug} />
+            <ProductCard key={p.id} product={p} />
           ))}
         </div>
       </section>
