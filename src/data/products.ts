@@ -22,6 +22,13 @@ import lumenLamp from "@/assets/lumen-lamp.jpg";
 import turmericPowder from "@/assets/turmeric-powder.jpg";
 import chiliPowder from "@/assets/chili-powder.jpg";
 import cuminSeeds from "@/assets/cumin-seeds.jpg";
+import galaxyProSmartphone from "@/assets/galaxy-pro-smartphone.jpg";
+import iphoneProMax from "@/assets/iphone-pro-max.jpg";
+import pixelLitePhone from "@/assets/pixel-lite-phone.jpg";
+import smartRefrigerator from "@/assets/smart-refrigerator.jpg";
+import washingMachine from "@/assets/washing-machine.jpg";
+import airConditioner from "@/assets/air-conditioner.jpg";
+import smartTv from "@/assets/smart-tv.jpg";
 
 export const products: Product[] = [
   {
@@ -144,6 +151,100 @@ export const products: Product[] = [
     description:
       "Whole cumin seeds with warm, earthy aroma—ideal for tempering and spice blends.",
   },
+  {
+    id: "p10",
+    slug: "galaxy-pro-smartphone",
+    name: "Galaxy Pro Smartphone",
+    brand: "Samsung",
+    category: "Mobiles",
+    price: 78999,
+    rating: 4.5,
+    reviews: 892,
+    images: [galaxyProSmartphone],
+    description:
+      "Premium smartphone with 108MP camera, 12GB RAM, 256GB storage, and 5000mAh battery.",
+    featured: true,
+  },
+  {
+    id: "p11",
+    slug: "iphone-pro-max",
+    name: "iPhone Pro Max",
+    brand: "Apple",
+    category: "Mobiles",
+    price: 129999,
+    rating: 4.8,
+    reviews: 1543,
+    images: [iphoneProMax],
+    description:
+      "Latest iPhone with A17 Pro chip, ProRAW camera system, and titanium design.",
+    featured: true,
+  },
+  {
+    id: "p12",
+    slug: "pixel-lite-phone",
+    name: "Pixel Lite Phone",
+    brand: "Google",
+    category: "Mobiles",
+    price: 34999,
+    rating: 4.3,
+    reviews: 456,
+    images: [pixelLitePhone],
+    description:
+      "Budget-friendly smartphone with pure Android experience and excellent camera.",
+  },
+  {
+    id: "p13",
+    slug: "smart-refrigerator",
+    name: "Smart Refrigerator 500L",
+    brand: "LG",
+    category: "Home Appliances",
+    price: 65999,
+    rating: 4.4,
+    reviews: 234,
+    images: [smartRefrigerator],
+    description:
+      "Energy-efficient smart refrigerator with digital temperature control and Wi-Fi connectivity.",
+  },
+  {
+    id: "p14",
+    slug: "washing-machine-8kg",
+    name: "Front Load Washing Machine 8kg",
+    brand: "Samsung",
+    category: "Home Appliances",
+    price: 45999,
+    rating: 4.2,
+    reviews: 567,
+    images: [washingMachine],
+    description:
+      "High-efficiency washing machine with 14 wash programs and steam wash technology.",
+  },
+  {
+    id: "p15",
+    slug: "split-air-conditioner",
+    name: "Split Air Conditioner 1.5 Ton",
+    brand: "Daikin",
+    category: "Home Appliances",
+    price: 42999,
+    rating: 4.6,
+    reviews: 345,
+    images: [airConditioner],
+    description:
+      "Inverter AC with copper condenser, 5-star energy rating, and smart Wi-Fi control.",
+  },
+  {
+    id: "p16",
+    slug: "smart-tv-55-inch",
+    name: "55 Inch 4K Smart TV",
+    brand: "Sony",
+    category: "Home Appliances",
+    price: 85999,
+    rating: 4.7,
+    reviews: 789,
+    images: [smartTv],
+    description:
+      "Ultra HD 4K Smart TV with HDR support, Android TV, and voice remote control.",
+    featured: true,
+  },
 ];
 
 export const categories = [
@@ -153,6 +254,8 @@ export const categories = [
   "Accessories",
   "Smart Home",
   "Spices",
+  "Mobiles",
+  "Home Appliances",
 ] as const;
 
 export const brands = [
@@ -163,4 +266,10 @@ export const brands = [
   "Flux",
   "Halo",
   "SpiceCo",
+  "Samsung",
+  "Apple",
+  "Google",
+  "LG",
+  "Daikin",
+  "Sony",
 ] as const;
