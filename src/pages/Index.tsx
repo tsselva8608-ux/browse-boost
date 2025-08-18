@@ -83,8 +83,8 @@ const Home = () => {
 
       <section className="container mx-auto py-12">
         <h2 className="mb-6 text-2xl font-semibold">Featured products</h2>
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {featured.map((p) => (
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-6">
+          {products.slice(0, 12).map((p) => (
             <ProductCard key={p.id} product={p} showOffer={true} />
           ))}
         </div>
@@ -220,7 +220,7 @@ const Listing = () => {
           />
         </div>
         
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
           {filteredProducts.map((p) => (
             <ProductCard key={p.id} product={p} showOffer={Math.random() > 0.7} />
           ))}
@@ -341,9 +341,18 @@ const ProductDetailPage = () => {
 
       <section className="container mx-auto py-12">
         <h2 className="mb-6 text-2xl font-semibold">Related products</h2>
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
           {related.map((p) => (
             <ProductCard key={p.id} product={p} />
+          ))}
+        </div>
+      </section>
+
+      <section className="container mx-auto py-12">
+        <h2 className="mb-6 text-2xl font-semibold">More products you might like</h2>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
+          {products.slice(0, 12).map((p) => (
+            <ProductCard key={p.id} product={p} showOffer={Math.random() > 0.6} />
           ))}
         </div>
       </section>
