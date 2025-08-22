@@ -24,15 +24,23 @@ import novaKeyboard from "@/assets/nova-keyboard.jpg";
 import ionHub from "@/assets/ion-hub.jpg";
 import lumenLamp from "@/assets/lumen-lamp.jpg";
 import turmericPowder from "@/assets/turmeric-powder.jpg";
+import turmericRoots from "@/assets/turmeric-roots.jpg";
 import chiliPowder from "@/assets/chili-powder.jpg";
+import chiliFresh from "@/assets/chili-fresh.jpg";
 import cuminSeeds from "@/assets/cumin-seeds.jpg";
+import cuminBowl from "@/assets/cumin-bowl.jpg";
 import galaxyProSmartphone from "@/assets/galaxy-pro-smartphone.jpg";
 import galaxyProBack from "@/assets/galaxy-pro-back.jpg";
 import galaxyProSide from "@/assets/galaxy-pro-side.jpg";
+import galaxyProCamera from "@/assets/galaxy-pro-camera.jpg";
 import iphoneProMax from "@/assets/iphone-pro-max.jpg";
 import iphoneProBack from "@/assets/iphone-pro-back.jpg";
 import iphoneProSide from "@/assets/iphone-pro-side.jpg";
+import iphoneProFront from "@/assets/iphone-pro-front.jpg";
+import iphoneProCamera from "@/assets/iphone-pro-camera.jpg";
 import pixelLitePhone from "@/assets/pixel-lite-phone.jpg";
+import pixelLiteBack from "@/assets/pixel-lite-back.jpg";
+import pixelLiteSide from "@/assets/pixel-lite-side.jpg";
 import smartRefrigerator from "@/assets/smart-refrigerator.jpg";
 import smartFridgeInterior from "@/assets/smart-fridge-interior.jpg";
 import smartFridgeControls from "@/assets/smart-fridge-controls.jpg";
@@ -41,6 +49,17 @@ import airConditioner from "@/assets/air-conditioner.jpg";
 import smartTv from "@/assets/smart-tv.jpg";
 import smartTvInterface from "@/assets/smart-tv-interface.jpg";
 import smartTvBack from "@/assets/smart-tv-back.jpg";
+import smartTvMounted from "@/assets/smart-tv-mounted.jpg";
+import smartTvRemote from "@/assets/smart-tv-remote.jpg";
+import badmintonRacket from "@/assets/badminton-racket.jpg";
+import badmintonGrip from "@/assets/badminton-grip.jpg";
+import badmintonSet from "@/assets/badminton-set.jpg";
+import cricketBat from "@/assets/cricket-bat.jpg";
+import cricketBatGrip from "@/assets/cricket-bat-grip.jpg";
+import cricketSet from "@/assets/cricket-set.jpg";
+import football from "@/assets/football.jpg";
+import footballDetail from "@/assets/football-detail.jpg";
+import footballField from "@/assets/football-field.jpg";
 
 export const products: Product[] = [
   {
@@ -133,7 +152,7 @@ export const products: Product[] = [
     price: 415,
     rating: 4.7,
     reviews: 154,
-    images: [turmericPowder],
+    images: [turmericPowder, turmericRoots],
     description:
       "Premium ground turmeric—rich color and aroma. Perfect for curries and wellness drinks.",
   },
@@ -146,7 +165,7 @@ export const products: Product[] = [
     price: 290,
     rating: 4.5,
     reviews: 201,
-    images: [chiliPowder],
+    images: [chiliPowder, chiliFresh],
     description:
       "Fiery and flavorful chili powder for vibrant heat in your dishes.",
   },
@@ -159,7 +178,7 @@ export const products: Product[] = [
     price: 249,
     rating: 4.6,
     reviews: 132,
-    images: [cuminSeeds],
+    images: [cuminSeeds, cuminBowl],
     description:
       "Whole cumin seeds with warm, earthy aroma—ideal for tempering and spice blends.",
   },
@@ -172,7 +191,7 @@ export const products: Product[] = [
     price: 78999,
     rating: 4.5,
     reviews: 892,
-    images: [galaxyProSmartphone, galaxyProBack, galaxyProSide],
+    images: [galaxyProSmartphone, galaxyProBack, galaxyProSide, galaxyProCamera],
     description:
       "Premium smartphone with 108MP camera, 12GB RAM, 256GB storage, and 5000mAh battery.",
     featured: true,
@@ -186,7 +205,7 @@ export const products: Product[] = [
     price: 129999,
     rating: 4.8,
     reviews: 1543,
-    images: [iphoneProMax, iphoneProBack, iphoneProSide],
+    images: [iphoneProMax, iphoneProBack, iphoneProSide, iphoneProFront, iphoneProCamera],
     description:
       "Latest iPhone with A17 Pro chip, ProRAW camera system, and titanium design.",
     featured: true,
@@ -200,7 +219,7 @@ export const products: Product[] = [
     price: 34999,
     rating: 4.3,
     reviews: 456,
-    images: [pixelLitePhone],
+    images: [pixelLitePhone, pixelLiteBack, pixelLiteSide],
     description:
       "Budget-friendly smartphone with pure Android experience and excellent camera.",
   },
@@ -252,10 +271,50 @@ export const products: Product[] = [
     price: 85999,
     rating: 4.7,
     reviews: 789,
-    images: [smartTv, smartTvInterface, smartTvBack],
+    images: [smartTv, smartTvInterface, smartTvBack, smartTvMounted, smartTvRemote],
     description:
       "Ultra HD 4K Smart TV with HDR support, Android TV, and voice remote control.",
     featured: true,
+  },
+  {
+    id: "p17",
+    slug: "professional-badminton-racket",
+    name: "Professional Badminton Racket",
+    brand: "ProSport",
+    category: "Sports",
+    price: 3299,
+    rating: 4.5,
+    reviews: 156,
+    images: [badmintonRacket, badmintonGrip, badmintonSet],
+    description:
+      "Professional carbon fiber badminton racket with perfect balance and string tension for competitive play.",
+  },
+  {
+    id: "p18",
+    slug: "premium-cricket-bat",
+    name: "Premium Cricket Bat",
+    brand: "CricketPro",
+    category: "Sports",
+    price: 4599,
+    rating: 4.7,
+    reviews: 243,
+    images: [cricketBat, cricketBatGrip, cricketSet],
+    description:
+      "Premium willow cricket bat with perfect grain structure and balanced weight for professional performance.",
+    featured: true,
+  },
+  {
+    id: "p19",
+    slug: "professional-football",
+    name: "Professional Football",
+    brand: "SportsMaster",
+    category: "Sports",
+    price: 1899,
+    rating: 4.4,
+    reviews: 321,
+    images: [football, footballDetail, footballField],
+    description:
+      "FIFA approved professional football with premium leather finish and perfect weight distribution.",
   },
 ];
 
@@ -268,6 +327,7 @@ export const categories = [
   "Spices",
   "Mobiles",
   "Home Appliances",
+  "Sports",
 ] as const;
 
 export const brands = [
@@ -284,4 +344,7 @@ export const brands = [
   "LG",
   "Daikin",
   "Sony",
+  "ProSport",
+  "CricketPro",
+  "SportsMaster",
 ] as const;
