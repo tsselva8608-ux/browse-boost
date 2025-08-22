@@ -14,7 +14,11 @@ export type Product = {
 
 // Product-specific images
 import quantumHeadphones from "@/assets/quantum-headphones.jpg";
+import quantumHeadphonesWhite from "@/assets/quantum-headphones-white.jpg";
+import quantumHeadphonesDetail from "@/assets/quantum-headphones-detail.jpg";
 import auroraSmartwatch from "@/assets/aurora-smartwatch.jpg";
+import auroraWatchFaces from "@/assets/aurora-watch-faces.jpg";
+import auroraWatchSide from "@/assets/aurora-watch-side.jpg";
 import voltaCamera from "@/assets/volta-camera.jpg";
 import novaKeyboard from "@/assets/nova-keyboard.jpg";
 import ionHub from "@/assets/ion-hub.jpg";
@@ -23,12 +27,20 @@ import turmericPowder from "@/assets/turmeric-powder.jpg";
 import chiliPowder from "@/assets/chili-powder.jpg";
 import cuminSeeds from "@/assets/cumin-seeds.jpg";
 import galaxyProSmartphone from "@/assets/galaxy-pro-smartphone.jpg";
+import galaxyProBack from "@/assets/galaxy-pro-back.jpg";
+import galaxyProSide from "@/assets/galaxy-pro-side.jpg";
 import iphoneProMax from "@/assets/iphone-pro-max.jpg";
+import iphoneProBack from "@/assets/iphone-pro-back.jpg";
+import iphoneProSide from "@/assets/iphone-pro-side.jpg";
 import pixelLitePhone from "@/assets/pixel-lite-phone.jpg";
 import smartRefrigerator from "@/assets/smart-refrigerator.jpg";
+import smartFridgeInterior from "@/assets/smart-fridge-interior.jpg";
+import smartFridgeControls from "@/assets/smart-fridge-controls.jpg";
 import washingMachine from "@/assets/washing-machine.jpg";
 import airConditioner from "@/assets/air-conditioner.jpg";
 import smartTv from "@/assets/smart-tv.jpg";
+import smartTvInterface from "@/assets/smart-tv-interface.jpg";
+import smartTvBack from "@/assets/smart-tv-back.jpg";
 
 export const products: Product[] = [
   {
@@ -40,7 +52,7 @@ export const products: Product[] = [
     price: 12499,
     rating: 4.6,
     reviews: 321,
-    images: [quantumHeadphones],
+    images: [quantumHeadphones, quantumHeadphonesWhite, quantumHeadphonesDetail],
     description:
       "Experience immersive sound with active noise cancellation, 40-hour battery life, and ultra-low latency for gaming and streaming.",
     featured: true,
@@ -54,7 +66,7 @@ export const products: Product[] = [
     price: 16499,
     rating: 4.4,
     reviews: 210,
-    images: [auroraSmartwatch],
+    images: [auroraSmartwatch, auroraWatchFaces, auroraWatchSide],
     description:
       "Track fitness, sleep, and heart rate with a stunning AMOLED display and 7-day battery life.",
     featured: true,
@@ -160,7 +172,7 @@ export const products: Product[] = [
     price: 78999,
     rating: 4.5,
     reviews: 892,
-    images: [galaxyProSmartphone],
+    images: [galaxyProSmartphone, galaxyProBack, galaxyProSide],
     description:
       "Premium smartphone with 108MP camera, 12GB RAM, 256GB storage, and 5000mAh battery.",
     featured: true,
@@ -174,7 +186,7 @@ export const products: Product[] = [
     price: 129999,
     rating: 4.8,
     reviews: 1543,
-    images: [iphoneProMax],
+    images: [iphoneProMax, iphoneProBack, iphoneProSide],
     description:
       "Latest iPhone with A17 Pro chip, ProRAW camera system, and titanium design.",
     featured: true,
@@ -201,7 +213,7 @@ export const products: Product[] = [
     price: 65999,
     rating: 4.4,
     reviews: 234,
-    images: [smartRefrigerator],
+    images: [smartRefrigerator, smartFridgeInterior, smartFridgeControls],
     description:
       "Energy-efficient smart refrigerator with digital temperature control and Wi-Fi connectivity.",
   },
@@ -240,7 +252,7 @@ export const products: Product[] = [
     price: 85999,
     rating: 4.7,
     reviews: 789,
-    images: [smartTv],
+    images: [smartTv, smartTvInterface, smartTvBack],
     description:
       "Ultra HD 4K Smart TV with HDR support, Android TV, and voice remote control.",
     featured: true,
