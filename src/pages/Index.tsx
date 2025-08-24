@@ -18,6 +18,12 @@ import sportsBanner from "@/assets/sports-banner.jpg";
 import spicesBanner from "@/assets/spices-banner.jpg";
 import brandsShowcase from "@/assets/brands-showcase.jpg";
 import saleBanner from "@/assets/sale-banner.jpg";
+import lifestyleTech from "@/assets/lifestyle-tech.jpg";
+import productCarousel from "@/assets/product-carousel.jpg";
+import fastDelivery from "@/assets/fast-delivery.jpg";
+import customerSupport from "@/assets/customer-support.jpg";
+import qualityGuarantee from "@/assets/quality-guarantee.jpg";
+import newsletterBanner from "@/assets/newsletter-banner.jpg";
 import { Textarea } from "@/components/ui/textarea";
 import QRCode from "react-qr-code";
 import { VoiceAssistant } from "@/components/VoiceAssistant";
@@ -87,12 +93,78 @@ const Home = () => {
         </div>
       </section>
 
+      {/* Lifestyle Section */}
+      <section className="container mx-auto py-12">
+        <div className="grid gap-8 md:grid-cols-2 items-center">
+          <div className="space-y-4">
+            <h2 className="text-3xl font-bold">Tech That Fits Your Lifestyle</h2>
+            <p className="text-muted-foreground text-lg">
+              Seamlessly integrate cutting-edge technology into your daily routine with our carefully curated collection of smart devices and accessories.
+            </p>
+            <Button asChild variant="outline" size="lg">
+              <Link to="/products">Explore Collection</Link>
+            </Button>
+          </div>
+          <div className="relative">
+            <img src={lifestyleTech} alt="Modern tech lifestyle" className="w-full rounded-xl shadow-elegant" />
+            <div className="absolute inset-0 bg-gradient-to-tr from-primary/10 to-transparent rounded-xl" />
+          </div>
+        </div>
+      </section>
+
+      {/* Product Showcase Carousel */}
+      <section className="container mx-auto py-12">
+        <h2 className="mb-6 text-2xl font-semibold text-center">Premium Tech Collection</h2>
+        <div className="relative overflow-hidden rounded-xl">
+          <img src={productCarousel} alt="Premium Product Collection" className="w-full h-80 object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-900/70 to-purple-900/70 flex items-center justify-center">
+            <div className="text-center text-white max-w-2xl px-6">
+              <h3 className="text-4xl font-bold mb-4">Discover Innovation</h3>
+              <p className="text-xl mb-6">From smartphones to smart homes, find the perfect tech for every need</p>
+              <Button asChild variant="secondary" size="lg">
+                <Link to="/products">View All Products</Link>
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section className="container mx-auto py-12">
         <h2 className="mb-6 text-2xl font-semibold">Featured products</h2>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-6">
           {products.slice(0, 12).map((p) => (
             <ProductCard key={p.id} product={p} showOffer={true} />
           ))}
+        </div>
+      </section>
+
+      {/* Service Features */}
+      <section className="container mx-auto py-12">
+        <h2 className="mb-8 text-2xl font-semibold text-center">Why Choose Us?</h2>
+        <div className="grid gap-6 md:grid-cols-3">
+          <div className="text-center space-y-4">
+            <div className="w-20 h-20 mx-auto rounded-full overflow-hidden">
+              <img src={fastDelivery} alt="Fast Delivery" className="w-full h-full object-cover" />
+            </div>
+            <h3 className="text-xl font-semibold">Lightning Fast Delivery</h3>
+            <p className="text-muted-foreground">Get your orders delivered within 24-48 hours with our express shipping network</p>
+          </div>
+          
+          <div className="text-center space-y-4">
+            <div className="w-20 h-20 mx-auto rounded-full overflow-hidden">
+              <img src={customerSupport} alt="Customer Support" className="w-full h-full object-cover" />
+            </div>
+            <h3 className="text-xl font-semibold">24/7 Customer Support</h3>
+            <p className="text-muted-foreground">Round-the-clock assistance from our dedicated support team via chat, email, or phone</p>
+          </div>
+          
+          <div className="text-center space-y-4">
+            <div className="w-20 h-20 mx-auto rounded-full overflow-hidden">
+              <img src={qualityGuarantee} alt="Quality Guarantee" className="w-full h-full object-cover" />
+            </div>
+            <h3 className="text-xl font-semibold">Quality Guarantee</h3>
+            <p className="text-muted-foreground">Every product comes with our quality assurance and hassle-free return policy</p>
+          </div>
         </div>
       </section>
 
@@ -198,6 +270,29 @@ const Home = () => {
               <Button variant="secondary" asChild size="lg">
                 <Link to="/products?category=Accessories">Explore deals</Link>
               </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Newsletter Section */}
+      <section className="container mx-auto py-12">
+        <div className="relative overflow-hidden rounded-xl">
+          <img src={newsletterBanner} alt="Stay Connected" className="w-full h-40 object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-600/90 to-purple-600/90 flex items-center justify-center">
+            <div className="text-center text-white max-w-lg px-6">
+              <h3 className="text-2xl font-bold mb-2">Stay in the Loop</h3>
+              <p className="text-lg mb-4">Get exclusive deals, new product alerts, and tech updates delivered to your inbox</p>
+              <div className="flex gap-2 max-w-sm mx-auto">
+                <input 
+                  type="email" 
+                  placeholder="Enter your email" 
+                  className="flex-1 px-4 py-2 rounded-lg border-0 text-gray-900 focus:outline-none focus:ring-2 focus:ring-white" 
+                />
+                <Button variant="secondary" size="default">
+                  Subscribe
+                </Button>
+              </div>
             </div>
           </div>
         </div>
