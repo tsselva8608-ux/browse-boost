@@ -12,6 +12,12 @@ import { ProductFilters, FilterState } from "@/components/ProductFilters";
 import { Star } from "lucide-react";
 
 import hero from "@/assets/hero-banner.jpg";
+import electronicsBanner from "@/assets/electronics-banner.jpg";
+import homeAppliancesBanner from "@/assets/home-appliances-banner.jpg";
+import sportsBanner from "@/assets/sports-banner.jpg";
+import spicesBanner from "@/assets/spices-banner.jpg";
+import brandsShowcase from "@/assets/brands-showcase.jpg";
+import saleBanner from "@/assets/sale-banner.jpg";
 import { Textarea } from "@/components/ui/textarea";
 import QRCode from "react-qr-code";
 import { VoiceAssistant } from "@/components/VoiceAssistant";
@@ -90,6 +96,86 @@ const Home = () => {
         </div>
       </section>
 
+      {/* Electronics Category Showcase */}
+      <section className="container mx-auto py-12">
+        <div className="relative overflow-hidden rounded-xl">
+          <img src={electronicsBanner} alt="Premium Electronics Collection" className="w-full h-64 object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-black/20 flex items-center">
+            <div className="container mx-auto px-6">
+              <div className="max-w-lg text-white">
+                <h2 className="text-3xl font-bold mb-2">Premium Electronics</h2>
+                <p className="text-lg mb-4">Discover cutting-edge smartphones, headphones, and smart devices</p>
+                <Button asChild variant="secondary" size="lg">
+                  <Link to="/products?category=Audio">Shop Electronics</Link>
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Home Appliances Showcase */}
+      <section className="container mx-auto py-12">
+        <div className="relative overflow-hidden rounded-xl">
+          <img src={homeAppliancesBanner} alt="Smart Home Appliances" className="w-full h-64 object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-l from-black/60 to-black/20 flex items-center justify-end">
+            <div className="container mx-auto px-6">
+              <div className="max-w-lg text-white text-right">
+                <h2 className="text-3xl font-bold mb-2">Smart Home Appliances</h2>
+                <p className="text-lg mb-4">Transform your home with intelligent appliances and smart technology</p>
+                <Button asChild variant="secondary" size="lg">
+                  <Link to="/products?category=Home%20Appliances">Shop Appliances</Link>
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Brand Showcase */}
+      <section className="container mx-auto py-12">
+        <h2 className="mb-6 text-2xl font-semibold text-center">Trusted Brands</h2>
+        <div className="relative overflow-hidden rounded-xl">
+          <img src={brandsShowcase} alt="Premium Brands Collection" className="w-full h-48 object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent flex items-end">
+            <div className="container mx-auto px-6 pb-6">
+              <p className="text-white text-lg font-medium">Featuring Apple, Samsung, Google, Sony, LG and more</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Sports & Spices in Grid */}
+      <section className="container mx-auto py-12">
+        <div className="grid gap-6 md:grid-cols-2">
+          <div className="relative overflow-hidden rounded-xl">
+            <img src={sportsBanner} alt="Sports Equipment Collection" className="w-full h-48 object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end">
+              <div className="p-6">
+                <h3 className="text-white text-xl font-bold mb-2">Sports Equipment</h3>
+                <p className="text-white/90 mb-3">Professional gear for badminton, cricket, and football</p>
+                <Button asChild variant="secondary">
+                  <Link to="/products?category=Sports">Shop Sports</Link>
+                </Button>
+              </div>
+            </div>
+          </div>
+          
+          <div className="relative overflow-hidden rounded-xl">
+            <img src={spicesBanner} alt="Premium Spices Collection" className="w-full h-48 object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end">
+              <div className="p-6">
+                <h3 className="text-white text-xl font-bold mb-2">Premium Spices</h3>
+                <p className="text-white/90 mb-3">Authentic flavors with turmeric, chili, and cumin</p>
+                <Button asChild variant="secondary">
+                  <Link to="/products?category=Spices">Shop Spices</Link>
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section className="container mx-auto py-12">
         <h2 className="mb-6 text-2xl font-semibold">Shop by category</h2>
         <div className="grid gap-3 grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
@@ -101,16 +187,18 @@ const Home = () => {
         </div>
       </section>
 
+      {/* Enhanced Sale Banner */}
       <section className="container mx-auto py-12">
-        <div className="rounded-xl border bg-gradient-surface p-8 shadow-elegant">
-          <div className="flex flex-col items-start gap-4 md:flex-row md:items-center md:justify-between">
-            <div>
-              <h3 className="text-xl font-semibold">Limited-time offers</h3>
-              <p className="text-muted-foreground">Save up to 40% on select accessories and audio gear.</p>
+        <div className="relative overflow-hidden rounded-xl">
+          <img src={saleBanner} alt="Limited Time Sale" className="w-full h-32 object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-r from-red-600/80 to-orange-600/80 flex items-center justify-center">
+            <div className="text-center text-white">
+              <h3 className="text-2xl font-bold mb-2">Limited-time offers</h3>
+              <p className="text-lg mb-4">Save up to 40% on select accessories and audio gear</p>
+              <Button variant="secondary" asChild size="lg">
+                <Link to="/products?category=Accessories">Explore deals</Link>
+              </Button>
             </div>
-            <Button variant="hero" asChild>
-              <Link to="/products?category=Accessories">Explore deals</Link>
-            </Button>
           </div>
         </div>
       </section>
