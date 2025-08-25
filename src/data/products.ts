@@ -25,10 +25,16 @@ import ionHub from "@/assets/ion-hub.jpg";
 import lumenLamp from "@/assets/lumen-lamp.jpg";
 import turmericPowder from "@/assets/turmeric-powder.jpg";
 import turmericRoots from "@/assets/turmeric-roots.jpg";
+import turmericGrinding from "@/assets/turmeric-grinding.jpg";
+import turmericJar from "@/assets/turmeric-jar.jpg";
 import chiliPowder from "@/assets/chili-powder.jpg";
 import chiliFresh from "@/assets/chili-fresh.jpg";
+import chiliDrying from "@/assets/chili-drying.jpg";
+import chiliContainer from "@/assets/chili-container.jpg";
 import cuminSeeds from "@/assets/cumin-seeds.jpg";
 import cuminBowl from "@/assets/cumin-bowl.jpg";
+import cuminRoasting from "@/assets/cumin-roasting.jpg";
+import cuminPackage from "@/assets/cumin-package.jpg";
 import galaxyProSmartphone from "@/assets/galaxy-pro-smartphone.jpg";
 import galaxyProBack from "@/assets/galaxy-pro-back.jpg";
 import galaxyProSide from "@/assets/galaxy-pro-side.jpg";
@@ -45,7 +51,11 @@ import smartRefrigerator from "@/assets/smart-refrigerator.jpg";
 import smartFridgeInterior from "@/assets/smart-fridge-interior.jpg";
 import smartFridgeControls from "@/assets/smart-fridge-controls.jpg";
 import washingMachine from "@/assets/washing-machine.jpg";
+import washingMachineInterior from "@/assets/washing-machine-interior.jpg";
+import washingMachineControls from "@/assets/washing-machine-controls.jpg";
 import airConditioner from "@/assets/air-conditioner.jpg";
+import airConditionerOutdoor from "@/assets/air-conditioner-outdoor.jpg";
+import airConditionerRemote from "@/assets/air-conditioner-remote.jpg";
 import smartTv from "@/assets/smart-tv.jpg";
 import smartTvInterface from "@/assets/smart-tv-interface.jpg";
 import smartTvBack from "@/assets/smart-tv-back.jpg";
@@ -152,7 +162,7 @@ export const products: Product[] = [
     price: 415,
     rating: 4.7,
     reviews: 154,
-    images: [turmericPowder, turmericRoots],
+    images: [turmericPowder, turmericRoots, turmericGrinding, turmericJar],
     description:
       "Premium ground turmeric—rich color and aroma. Perfect for curries and wellness drinks.",
   },
@@ -165,7 +175,7 @@ export const products: Product[] = [
     price: 290,
     rating: 4.5,
     reviews: 201,
-    images: [chiliPowder, chiliFresh],
+    images: [chiliPowder, chiliFresh, chiliDrying, chiliContainer],
     description:
       "Fiery and flavorful chili powder for vibrant heat in your dishes.",
   },
@@ -178,7 +188,7 @@ export const products: Product[] = [
     price: 249,
     rating: 4.6,
     reviews: 132,
-    images: [cuminSeeds, cuminBowl],
+    images: [cuminSeeds, cuminBowl, cuminRoasting, cuminPackage],
     description:
       "Whole cumin seeds with warm, earthy aroma—ideal for tempering and spice blends.",
   },
@@ -245,7 +255,7 @@ export const products: Product[] = [
     price: 45999,
     rating: 4.2,
     reviews: 567,
-    images: [washingMachine],
+    images: [washingMachine, washingMachineInterior, washingMachineControls],
     description:
       "High-efficiency washing machine with 14 wash programs and steam wash technology.",
   },
@@ -258,7 +268,7 @@ export const products: Product[] = [
     price: 42999,
     rating: 4.6,
     reviews: 345,
-    images: [airConditioner],
+    images: [airConditioner, airConditionerOutdoor, airConditionerRemote],
     description:
       "Inverter AC with copper condenser, 5-star energy rating, and smart Wi-Fi control.",
   },
