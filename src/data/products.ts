@@ -20,9 +20,21 @@ import auroraSmartwatch from "@/assets/aurora-smartwatch.jpg";
 import auroraWatchFaces from "@/assets/aurora-watch-faces.jpg";
 import auroraWatchSide from "@/assets/aurora-watch-side.jpg";
 import voltaCamera from "@/assets/volta-camera.jpg";
+import voltaCameraUnderwater from "@/assets/volta-camera-underwater.jpg";
+import voltaCameraMount from "@/assets/volta-camera-mount.jpg";
+import voltaCameraAccessories from "@/assets/volta-camera-accessories.jpg";
 import novaKeyboard from "@/assets/nova-keyboard.jpg";
+import novaKeyboardRgb from "@/assets/nova-keyboard-rgb.jpg";
+import novaKeyboardSwitches from "@/assets/nova-keyboard-switches.jpg";
+import novaKeyboardGaming from "@/assets/nova-keyboard-gaming.jpg";
 import ionHub from "@/assets/ion-hub.jpg";
+import ionHubConnected from "@/assets/ion-hub-connected.jpg";
+import ionHubPorts from "@/assets/ion-hub-ports.jpg";
+import ionHubUnboxing from "@/assets/ion-hub-unboxing.jpg";
 import lumenLamp from "@/assets/lumen-lamp.jpg";
+import lumenLampColors from "@/assets/lumen-lamp-colors.jpg";
+import lumenLampApp from "@/assets/lumen-lamp-app.jpg";
+import lumenLampRoom from "@/assets/lumen-lamp-room.jpg";
 import turmericPowder from "@/assets/turmeric-powder.jpg";
 import turmericRoots from "@/assets/turmeric-roots.jpg";
 import turmericGrinding from "@/assets/turmeric-grinding.jpg";
@@ -109,7 +121,7 @@ export const products: Product[] = [
     price: 20699,
     rating: 4.2,
     reviews: 88,
-    images: [voltaCamera],
+    images: [voltaCamera, voltaCameraUnderwater, voltaCameraMount, voltaCameraAccessories],
     description:
       "Capture your adventures in crisp 4K with advanced stabilization and waterproof housing.",
   },
@@ -122,7 +134,7 @@ export const products: Product[] = [
     price: 10799,
     rating: 4.8,
     reviews: 512,
-    images: [novaKeyboard],
+    images: [novaKeyboard, novaKeyboardRgb, novaKeyboardSwitches, novaKeyboardGaming],
     description:
       "Hot-swappable switches, per-key RGB, and a premium aluminum chassis for a dream typing experience.",
     featured: true,
@@ -136,7 +148,7 @@ export const products: Product[] = [
     price: 6649,
     rating: 4.1,
     reviews: 67,
-    images: [ionHub],
+    images: [ionHub, ionHubConnected, ionHubPorts, ionHubUnboxing],
     description:
       "Expand your laptop's potential with HDMI 4K, SD, USB-A, and PD charging in a compact design.",
   },
@@ -149,7 +161,7 @@ export const products: Product[] = [
     price: 4899,
     rating: 4.3,
     reviews: 138,
-    images: [lumenLamp],
+    images: [lumenLamp, lumenLampColors, lumenLampApp, lumenLampRoom],
     description:
       "Smart RGB lighting with app control, scenes, and voice assistant support.",
   },
