@@ -27,6 +27,8 @@ import newsletterBanner from "@/assets/newsletter-banner.jpg";
 import { Textarea } from "@/components/ui/textarea";
 import QRCode from "react-qr-code";
 import { VoiceAssistant } from "@/components/VoiceAssistant";
+import { SubscriptionCard } from "@/components/SubscriptionCard";
+import { useSubscription } from "@/context/SubscriptionContext";
 
 type Props = { page?:
   | "products"
@@ -34,6 +36,7 @@ type Props = { page?:
   | "cart"
   | "checkout"
   | "orders"
+  | "subscription"
   | "admin"
   | "auth" };
 
@@ -47,6 +50,7 @@ const Index = ({ page }: Props) => {
       {page === "cart" && <CartPage />}
       {page === "checkout" && <CheckoutPage />}
       {page === "orders" && <OrdersPage />}
+      {page === "subscription" && <SubscriptionPage />}
       {page === "admin" && <AdminPage />}
       {page === "auth" && <AuthPage />}
       <VoiceAssistant onMessage={(msg) => console.log('Voice message:', msg)} />
@@ -590,6 +594,7 @@ const CartPage = () => {
 
 const CheckoutPage = () => {
   const { items, subtotal, clear, note, setNote } = useCart();
+  const { isSubscribed } = useSubscription();
   const [paymentMethod, setPaymentMethod] = useState<"paypal" | "stripe" | "razorpay" | "qr">("paypal");
   const [paymentLink, setPaymentLink] = useState<string>("");
   
@@ -688,6 +693,34 @@ const CheckoutPage = () => {
             <div className="flex justify-between">
               <span>Subtotal</span>
               <span>₹{subtotal.toLocaleString()}</span>
+            </div>
+            
+            {/* Delivery Information */}
+            <div className="mt-4 space-y-2">
+              {isSubscribed ? (
+                <div className="flex items-center gap-2 text-green-600 text-sm">
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  </svg>
+                  <span className="font-medium">Fast Delivery (FREE)</span>
+                </div>
+              ) : (
+                <div className="space-y-2">
+                  <div className="flex justify-between text-sm">
+                    <span>Delivery charges</span>
+                    <span>₹49</span>
+                  </div>
+                  <div className="text-xs text-muted-foreground">
+                    Subscribe for fast delivery and save on delivery fees!{" "}
+                    <Link to="/subscription" className="text-primary underline">Learn more</Link>
+                  </div>
+                </div>
+              )}
+            </div>
+            
+            <div className="mt-4 pt-2 border-t font-semibold flex justify-between">
+              <span>Total</span>
+              <span>₹{(subtotal + (isSubscribed ? 0 : 49)).toLocaleString()}</span>
             </div>
           </div>
         </aside>
@@ -836,6 +869,109 @@ const AuthPage = () => {
                 </button>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+    </>
+  );
+};
+
+const SubscriptionPage = () => {
+  const { isSubscribed, subscriptionPlan } = useSubscription();
+  
+  useEffect(() => {
+    // Check if user is logged in
+    const user = localStorage.getItem('bb_user');
+    if (!user) {
+      alert('Please sign in to access subscription');
+      window.location.href = '/auth';
+    }
+  }, []);
+
+  return (
+    <>
+      <SEO title="Fast Delivery Subscription — Browse Boost" description="Subscribe for fast delivery on all orders at ₹199/month." canonicalPath="/subscription" />
+      <section className="container mx-auto py-10">
+        <div className="mb-8 text-center">
+          <h1 className="text-4xl font-bold mb-4">Fast Delivery Subscription</h1>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            Get lightning-fast delivery on all your orders with our premium subscription service. 
+            Never wait for your tech essentials again!
+          </p>
+        </div>
+
+        <div className="max-w-md mx-auto mb-12">
+          <SubscriptionCard />
+        </div>
+
+        {/* Benefits Section */}
+        <div className="grid gap-8 md:grid-cols-3 mb-12">
+          <div className="text-center space-y-4">
+            <div className="w-16 h-16 mx-auto bg-green-100 rounded-full flex items-center justify-center">
+              <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+            </div>
+            <h3 className="text-xl font-semibold">Same Day Delivery</h3>
+            <p className="text-muted-foreground">Get your orders delivered within hours, not days. Perfect for urgent tech needs.</p>
+          </div>
+          
+          <div className="text-center space-y-4">
+            <div className="w-16 h-16 mx-auto bg-blue-100 rounded-full flex items-center justify-center">
+              <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+              </svg>
+            </div>
+            <h3 className="text-xl font-semibold">Priority Shipping</h3>
+            <p className="text-muted-foreground">Your orders get priority processing and the fastest shipping methods available.</p>
+          </div>
+          
+          <div className="text-center space-y-4">
+            <div className="w-16 h-16 mx-auto bg-purple-100 rounded-full flex items-center justify-center">
+              <svg className="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
+              </svg>
+            </div>
+            <h3 className="text-xl font-semibold">No Delivery Charges</h3>
+            <p className="text-muted-foreground">Save on delivery fees with unlimited free shipping on all your orders.</p>
+          </div>
+        </div>
+
+        {/* Subscription Status */}
+        {isSubscribed && (
+          <div className="max-w-2xl mx-auto">
+            <Card className="bg-green-50 border-green-200">
+              <CardContent className="p-6 text-center">
+                <h3 className="text-xl font-semibold text-green-800 mb-2">
+                  🎉 You're subscribed to Fast Delivery!
+                </h3>
+                <p className="text-green-600 mb-4">
+                  Enjoy lightning-fast delivery on all your orders. Your subscription is active and ready to use.
+                </p>
+                <Button asChild variant="outline" className="border-green-300 text-green-700 hover:bg-green-100">
+                  <Link to="/products">Start Shopping</Link>
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
+        )}
+
+        {/* FAQ Section */}
+        <div className="max-w-2xl mx-auto mt-12">
+          <h2 className="text-2xl font-bold text-center mb-8">Frequently Asked Questions</h2>
+          <div className="space-y-4">
+            <details className="border rounded-lg p-4">
+              <summary className="font-medium cursor-pointer">How fast is same-day delivery?</summary>
+              <p className="mt-2 text-muted-foreground">Orders placed before 2 PM are typically delivered the same day. We partner with local courier services to ensure the fastest possible delivery.</p>
+            </details>
+            <details className="border rounded-lg p-4">
+              <summary className="font-medium cursor-pointer">Can I cancel my subscription anytime?</summary>
+              <p className="mt-2 text-muted-foreground">Yes, you can cancel your subscription at any time. Your fast delivery benefits will continue until the end of your current billing period.</p>
+            </details>
+            <details className="border rounded-lg p-4">
+              <summary className="font-medium cursor-pointer">Is there a minimum order amount?</summary>
+              <p className="mt-2 text-muted-foreground">No, there's no minimum order amount for subscribers. Enjoy fast delivery on any purchase, big or small.</p>
+            </details>
           </div>
         </div>
       </section>
