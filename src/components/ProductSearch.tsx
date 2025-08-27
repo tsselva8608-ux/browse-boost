@@ -100,17 +100,30 @@ export const ProductSearch = ({ onProductSelect }: ProductSearchProps) => {
               <button
                 key={product.id}
                 onClick={() => handleSuggestionClick(product)}
-                className="flex w-full items-center gap-3 rounded-md p-2 text-left hover:bg-accent"
+                className="flex w-full items-center gap-3 rounded-md p-3 text-left hover:bg-accent transition-colors"
               >
-                <img
-                  src={product.images[0]}
-                  alt={product.name}
-                  className="h-10 w-10 rounded object-cover"
-                />
+                <div className="flex gap-1">
+                  {product.images.slice(0, 2).map((image, index) => (
+                    <img
+                      key={index}
+                      src={image}
+                      alt={`${product.name} view ${index + 1}`}
+                      className="h-12 w-12 rounded object-cover border"
+                    />
+                  ))}
+                  {product.images.length > 2 && (
+                    <div className="h-12 w-12 rounded border bg-muted flex items-center justify-center text-xs text-muted-foreground">
+                      +{product.images.length - 2}
+                    </div>
+                  )}
+                </div>
                 <div className="flex-1 min-w-0">
                   <p className="font-medium truncate">{product.name}</p>
                   <p className="text-sm text-muted-foreground">
-                    {product.brand} • ₹{product.price.toLocaleString()}
+                    {product.brand} • {product.category}
+                  </p>
+                  <p className="text-sm font-semibold text-primary">
+                    ₹{product.price.toLocaleString()}
                   </p>
                 </div>
               </button>
