@@ -82,6 +82,14 @@ import cricketSet from "@/assets/cricket-set.jpg";
 import football from "@/assets/football.jpg";
 import footballDetail from "@/assets/football-detail.jpg";
 import footballField from "@/assets/football-field.jpg";
+import gamingMouse from "@/assets/gaming-mouse.jpg";
+import wirelessEarbuds from "@/assets/wireless-earbuds.jpg";
+import bluetoothSpeaker from "@/assets/bluetooth-speaker.jpg";
+import gamingHeadset from "@/assets/gaming-headset.jpg";
+import tabletPro from "@/assets/tablet-pro.jpg";
+import laptopUltrabook from "@/assets/laptop-ultrabook.jpg";
+import fitnessTracker from "@/assets/fitness-tracker.jpg";
+import yogaMat from "@/assets/yoga-mat.jpg";
 
 export const products: Product[] = [
   {
@@ -338,6 +346,113 @@ export const products: Product[] = [
     description:
       "FIFA approved professional football with premium leather finish and perfect weight distribution.",
   },
+  {
+    id: "p20",
+    slug: "rgb-gaming-mouse",
+    name: "RGB Gaming Mouse",
+    brand: "TechGear",
+    category: "Accessories",
+    price: 2499,
+    rating: 4.6,
+    reviews: 412,
+    images: [gamingMouse],
+    description:
+      "High-precision gaming mouse with customizable RGB lighting, 16000 DPI sensor, and ergonomic design for marathon gaming sessions.",
+    featured: true,
+  },
+  {
+    id: "p21",
+    slug: "wireless-earbuds-pro",
+    name: "Wireless Earbuds Pro",
+    brand: "SonicX",
+    category: "Audio",
+    price: 5999,
+    rating: 4.5,
+    reviews: 687,
+    images: [wirelessEarbuds],
+    description:
+      "True wireless earbuds with active noise cancellation, 30-hour battery life with charging case, and crystal-clear audio quality.",
+  },
+  {
+    id: "p22",
+    slug: "portable-bluetooth-speaker",
+    name: "Portable Bluetooth Speaker",
+    brand: "Halo",
+    category: "Audio",
+    price: 3799,
+    rating: 4.3,
+    reviews: 298,
+    images: [bluetoothSpeaker],
+    description:
+      "Waterproof bluetooth speaker with 360° sound, 20-hour battery, and deep bass for outdoor adventures.",
+  },
+  {
+    id: "p23",
+    slug: "gaming-headset-pro",
+    name: "Gaming Headset Pro",
+    brand: "TechGear",
+    category: "Audio",
+    price: 8999,
+    rating: 4.7,
+    reviews: 534,
+    images: [gamingHeadset],
+    description:
+      "Professional gaming headset with 7.1 surround sound, noise-canceling microphone, and RGB lighting for immersive gaming experience.",
+    featured: true,
+  },
+  {
+    id: "p24",
+    slug: "tablet-pro-12-inch",
+    name: "Tablet Pro 12 inch",
+    brand: "Samsung",
+    category: "Mobiles",
+    price: 54999,
+    rating: 4.4,
+    reviews: 421,
+    images: [tabletPro],
+    description:
+      "Premium tablet with 12-inch AMOLED display, S-Pen included, powerful processor for productivity and creativity.",
+  },
+  {
+    id: "p25",
+    slug: "ultrabook-laptop",
+    name: "Ultrabook Laptop",
+    brand: "Apple",
+    category: "Accessories",
+    price: 89999,
+    rating: 4.8,
+    reviews: 912,
+    images: [laptopUltrabook],
+    description:
+      "Ultra-thin laptop with M3 chip, 16GB RAM, 512GB SSD, stunning Retina display, and all-day battery life.",
+    featured: true,
+  },
+  {
+    id: "p26",
+    slug: "fitness-tracker-band",
+    name: "Fitness Tracker Band",
+    brand: "Nebula",
+    category: "Wearables",
+    price: 3499,
+    rating: 4.2,
+    reviews: 567,
+    images: [fitnessTracker],
+    description:
+      "Smart fitness tracker with heart rate monitoring, sleep tracking, 10-day battery life, and water resistance.",
+  },
+  {
+    id: "p27",
+    slug: "premium-yoga-mat",
+    name: "Premium Yoga Mat",
+    brand: "SportsMaster",
+    category: "Sports",
+    price: 1499,
+    rating: 4.5,
+    reviews: 234,
+    images: [yogaMat],
+    description:
+      "Non-slip yoga mat with extra cushioning, eco-friendly materials, and carrying strap for easy transport.",
+  },
 ];
 
 export const categories = [
@@ -369,4 +484,5 @@ export const brands = [
   "ProSport",
   "CricketPro",
   "SportsMaster",
+  "TechGear",
 ] as const;

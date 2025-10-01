@@ -595,7 +595,7 @@ const CartPage = () => {
 const CheckoutPage = () => {
   const { items, subtotal, clear, note, setNote } = useCart();
   const { isSubscribed } = useSubscription();
-  const [paymentMethod, setPaymentMethod] = useState<"paypal" | "stripe" | "razorpay" | "qr">("paypal");
+  const [paymentMethod, setPaymentMethod] = useState<"paypal" | "phonepe" | "gpay" | "qr">("paypal");
   const [paymentLink, setPaymentLink] = useState<string>("");
   
   useEffect(() => {
@@ -638,8 +638,8 @@ const CheckoutPage = () => {
             <p className="text-sm text-muted-foreground">Payment method</p>
             <div className="flex flex-wrap gap-2">
               <Button type="button" variant={paymentMethod === "paypal" ? "default" : "outline"} onClick={() => setPaymentMethod("paypal")}>PayPal</Button>
-              <Button type="button" variant={paymentMethod === "stripe" ? "default" : "outline"} onClick={() => setPaymentMethod("stripe")}>Stripe</Button>
-              <Button type="button" variant={paymentMethod === "razorpay" ? "default" : "outline"} onClick={() => setPaymentMethod("razorpay")}>Razorpay</Button>
+              <Button type="button" variant={paymentMethod === "phonepe" ? "default" : "outline"} onClick={() => setPaymentMethod("phonepe")}>PhonePe</Button>
+              <Button type="button" variant={paymentMethod === "gpay" ? "default" : "outline"} onClick={() => setPaymentMethod("gpay")}>Google Pay</Button>
               <Button type="button" variant={paymentMethod === "qr" ? "default" : "outline"} onClick={() => setPaymentMethod("qr")}>QR Code</Button>
             </div>
             {paymentMethod === "qr" && (
