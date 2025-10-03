@@ -1,9 +1,14 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Star, ChevronLeft, ChevronRight } from "lucide-react";
+import { Star, ChevronLeft, ChevronRight, Info } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Product } from "@/data/products";
 import { useState } from "react";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
 
 interface ProductCardProps {
   product: Product;
@@ -24,9 +29,11 @@ export const ProductCard = ({ product, showOffer = false }: ProductCardProps) =>
   };
   
   return (
-    <Link to={`/product/${product.slug}`} className="group">
-      <Card className="h-full overflow-hidden hover:shadow-lg transition-shadow">
-        <CardContent className="p-0">
+    <HoverCard openDelay={200} closeDelay={100}>
+      <HoverCardTrigger asChild>
+        <Link to={`/product/${product.slug}`} className="group block">
+          <Card className="h-full overflow-hidden hover:shadow-lg transition-shadow">
+            <CardContent className="p-0">
           <div className="aspect-square overflow-hidden relative group">
             <img 
               src={product.images[currentImageIndex]} 
@@ -82,6 +89,11 @@ export const ProductCard = ({ product, showOffer = false }: ProductCardProps) =>
                 {discountPercentage}% OFF
               </Badge>
             )}
+            
+            {/* Info icon to indicate hover details */}
+            <div className="absolute top-2 left-2 bg-background/80 backdrop-blur-sm rounded-full p-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
+              <Info className="h-4 w-4 text-muted-foreground" />
+            </div>
           </div>
           <div className="space-y-2 p-4">
             <h3 className="font-medium line-clamp-2">{product.name}</h3>
@@ -117,5 +129,39 @@ export const ProductCard = ({ product, showOffer = false }: ProductCardProps) =>
         </CardContent>
       </Card>
     </Link>
+      </HoverCardTrigger>
+      
+      <HoverCardContent className="w-80 z-50 bg-popover" side="right" align="start">
+        <div className="space-y-3">
+          <div>
+            <h4 className="font-semibold text-sm mb-1">{product.name}</h4>
+            <p className="text-xs text-muted-foreground">{product.description}</p>
+          </div>
+          
+          <div>
+            <p className="text-xs font-medium mb-2">Key Features:</p>
+            <ul className="space-y-1">
+              {product.features.map((feature, index) => (
+                <li key={index} className="text-xs text-muted-foreground flex items-start gap-1.5">
+                  <span className="text-primary mt-0.5">✓</span>
+                  <span>{feature}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+          
+          <div className="pt-2 border-t">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-1">
+                <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
+                <span className="text-xs font-medium">{product.rating}</span>
+                <span className="text-xs text-muted-foreground">({product.reviews})</span>
+              </div>
+              <p className="text-sm font-bold text-primary">₹{product.price.toLocaleString()}</p>
+            </div>
+          </div>
+        </div>
+      </HoverCardContent>
+    </HoverCard>
   );
 };

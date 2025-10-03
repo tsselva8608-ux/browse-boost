@@ -9,6 +9,7 @@ export type Product = {
   reviews: number;
   images: string[];
   description: string;
+  features: string[];
   featured?: boolean;
 };
 
@@ -104,6 +105,7 @@ export const products: Product[] = [
     images: [quantumHeadphones, quantumHeadphonesWhite, quantumHeadphonesDetail],
     description:
       "Experience immersive sound with active noise cancellation, 40-hour battery life, and ultra-low latency for gaming and streaming.",
+    features: ["Active Noise Cancellation", "40-Hour Battery", "Bluetooth 5.3", "Ultra-Low 20ms Latency", "Premium Drivers"],
     featured: true,
   },
   {
@@ -118,6 +120,7 @@ export const products: Product[] = [
     images: [auroraSmartwatch, auroraWatchFaces, auroraWatchSide],
     description:
       "Track fitness, sleep, and heart rate with a stunning AMOLED display and 7-day battery life.",
+    features: ["1.4\" AMOLED Display", "7-Day Battery", "Heart Rate Monitor", "Sleep Tracking", "IP68 Waterproof"],
     featured: true,
   },
   {
@@ -132,6 +135,7 @@ export const products: Product[] = [
     images: [voltaCamera, voltaCameraUnderwater, voltaCameraMount, voltaCameraAccessories],
     description:
       "Capture your adventures in crisp 4K with advanced stabilization and waterproof housing.",
+    features: ["4K 60FPS Recording", "Electronic Stabilization", "10m Waterproof", "Voice Control", "2\" Touchscreen"],
   },
   {
     id: "p4",
@@ -145,6 +149,7 @@ export const products: Product[] = [
     images: [novaKeyboard, novaKeyboardRgb, novaKeyboardSwitches, novaKeyboardGaming],
     description:
       "Hot-swappable switches, per-key RGB, and a premium aluminum chassis for a dream typing experience.",
+    features: ["Hot-Swappable Switches", "Per-Key RGB", "Aluminum Chassis", "1000Hz Polling Rate", "PBT Keycaps"],
     featured: true,
   },
   {
@@ -159,6 +164,7 @@ export const products: Product[] = [
     images: [ionHub, ionHubConnected, ionHubPorts, ionHubUnboxing],
     description:
       "Expand your laptop's potential with HDMI 4K, SD, USB-A, and PD charging in a compact design.",
+    features: ["HDMI 4K@60Hz", "100W PD Charging", "SD/microSD Reader", "3x USB 3.0", "Aluminum Build"],
   },
   {
     id: "p6",
@@ -172,6 +178,7 @@ export const products: Product[] = [
     images: [lumenLamp, lumenLampColors, lumenLampApp, lumenLampRoom],
     description:
       "Smart RGB lighting with app control, scenes, and voice assistant support.",
+    features: ["16M Colors", "App Control", "Voice Assistant", "Music Sync", "Custom Scenes"],
   },
   {
     id: "p7",
@@ -185,6 +192,7 @@ export const products: Product[] = [
     images: [turmericPowder, turmericRoots, turmericGrinding, turmericJar],
     description:
       "Premium ground turmeric—rich color and aroma. Perfect for curries and wellness drinks.",
+    features: ["100% Pure", "No Additives", "Lab Tested", "Rich Curcumin", "Premium Quality"],
   },
   {
     id: "p8",
@@ -198,6 +206,7 @@ export const products: Product[] = [
     images: [chiliPowder, chiliFresh, chiliDrying, chiliContainer],
     description:
       "Fiery and flavorful chili powder for vibrant heat in your dishes.",
+    features: ["Extra Hot", "Natural Color", "Hygienically Packed", "No Artificial Color", "Premium Quality"],
   },
   {
     id: "p9",
@@ -211,6 +220,7 @@ export const products: Product[] = [
     images: [cuminSeeds, cuminBowl, cuminRoasting, cuminPackage],
     description:
       "Whole cumin seeds with warm, earthy aroma—ideal for tempering and spice blends.",
+    features: ["Whole Seeds", "Strong Aroma", "Clean & Sorted", "Fresh Harvest", "Premium Grade"],
   },
   {
     id: "p10",
@@ -224,6 +234,7 @@ export const products: Product[] = [
     images: [galaxyProSmartphone, galaxyProBack, galaxyProSide, galaxyProCamera],
     description:
       "Premium smartphone with 108MP camera, 12GB RAM, 256GB storage, and 5000mAh battery.",
+    features: ["108MP Camera", "12GB RAM", "256GB Storage", "5000mAh Battery", "120Hz Display"],
     featured: true,
   },
   {
@@ -238,6 +249,7 @@ export const products: Product[] = [
     images: [iphoneProMax, iphoneProBack, iphoneProSide, iphoneProFront, iphoneProCamera],
     description:
       "Latest iPhone with A17 Pro chip, ProRAW camera system, and titanium design.",
+    features: ["A17 Pro Chip", "ProRAW Camera", "Titanium Design", "Action Button", "USB-C"],
     featured: true,
   },
   {
@@ -252,6 +264,7 @@ export const products: Product[] = [
     images: [pixelLitePhone, pixelLiteBack, pixelLiteSide],
     description:
       "Budget-friendly smartphone with pure Android experience and excellent camera.",
+    features: ["Pure Android", "AI Camera", "Night Sight", "5 Years Updates", "Fast Charging"],
   },
   {
     id: "p13",
@@ -265,6 +278,7 @@ export const products: Product[] = [
     images: [smartRefrigerator, smartFridgeInterior, smartFridgeControls],
     description:
       "Energy-efficient smart refrigerator with digital temperature control and Wi-Fi connectivity.",
+    features: ["500L Capacity", "Wi-Fi Control", "Smart Diagnosis", "5-Star Rating", "Inverter Compressor"],
   },
   {
     id: "p14",
@@ -278,6 +292,7 @@ export const products: Product[] = [
     images: [washingMachine, washingMachineInterior, washingMachineControls],
     description:
       "High-efficiency washing machine with 14 wash programs and steam wash technology.",
+    features: ["8kg Capacity", "Steam Wash", "14 Programs", "Digital Inverter", "Quick Wash 15min"],
   },
   {
     id: "p15",
@@ -291,6 +306,7 @@ export const products: Product[] = [
     images: [airConditioner, airConditionerOutdoor, airConditionerRemote],
     description:
       "Inverter AC with copper condenser, 5-star energy rating, and smart Wi-Fi control.",
+    features: ["1.5 Ton", "5-Star Rating", "Copper Condenser", "Wi-Fi Control", "PM 2.5 Filter"],
   },
   {
     id: "p16",
@@ -304,6 +320,7 @@ export const products: Product[] = [
     images: [smartTv, smartTvInterface, smartTvBack, smartTvMounted, smartTvRemote],
     description:
       "Ultra HD 4K Smart TV with HDR support, Android TV, and voice remote control.",
+    features: ["55\" 4K UHD", "HDR10 & Dolby Vision", "Android TV", "Voice Remote", "120Hz Refresh"],
     featured: true,
   },
   {
@@ -318,6 +335,7 @@ export const products: Product[] = [
     images: [badmintonRacket, badmintonGrip, badmintonSet],
     description:
       "Professional carbon fiber badminton racket with perfect balance and string tension for competitive play.",
+    features: ["Carbon Fiber", "85g Weight", "30lbs Tension", "Professional Grip", "Isometric Head"],
   },
   {
     id: "p18",
@@ -331,6 +349,7 @@ export const products: Product[] = [
     images: [cricketBat, cricketBatGrip, cricketSet],
     description:
       "Premium willow cricket bat with perfect grain structure and balanced weight for professional performance.",
+    features: ["Kashmir Willow", "1200g Weight", "Perfect Balance", "Premium Grip", "Professional Grade"],
     featured: true,
   },
   {
@@ -345,6 +364,7 @@ export const products: Product[] = [
     images: [football, footballDetail, footballField],
     description:
       "FIFA approved professional football with premium leather finish and perfect weight distribution.",
+    features: ["FIFA Approved", "Size 5", "Premium Leather", "Perfect Weight", "Professional Match Ball"],
   },
   {
     id: "p20",
@@ -358,6 +378,7 @@ export const products: Product[] = [
     images: [gamingMouse],
     description:
       "High-precision gaming mouse with customizable RGB lighting, 16000 DPI sensor, and ergonomic design for marathon gaming sessions.",
+    features: ["16000 DPI Sensor", "RGB Lighting", "8 Programmable Buttons", "1000Hz Polling", "Ergonomic Design"],
     featured: true,
   },
   {
@@ -372,6 +393,7 @@ export const products: Product[] = [
     images: [wirelessEarbuds],
     description:
       "True wireless earbuds with active noise cancellation, 30-hour battery life with charging case, and crystal-clear audio quality.",
+    features: ["Active ANC", "30-Hour Battery", "IPX5 Waterproof", "Touch Controls", "Wireless Charging"],
   },
   {
     id: "p22",
@@ -385,6 +407,7 @@ export const products: Product[] = [
     images: [bluetoothSpeaker],
     description:
       "Waterproof bluetooth speaker with 360° sound, 20-hour battery, and deep bass for outdoor adventures.",
+    features: ["360° Sound", "20-Hour Battery", "IPX7 Waterproof", "Deep Bass", "USB-C Charging"],
   },
   {
     id: "p23",
@@ -398,6 +421,7 @@ export const products: Product[] = [
     images: [gamingHeadset],
     description:
       "Professional gaming headset with 7.1 surround sound, noise-canceling microphone, and RGB lighting for immersive gaming experience.",
+    features: ["7.1 Surround Sound", "Noise-Canceling Mic", "RGB Lighting", "Memory Foam Cushions", "Multi-Platform"],
     featured: true,
   },
   {
@@ -412,6 +436,7 @@ export const products: Product[] = [
     images: [tabletPro],
     description:
       "Premium tablet with 12-inch AMOLED display, S-Pen included, powerful processor for productivity and creativity.",
+    features: ["12\" AMOLED", "S-Pen Included", "8GB RAM", "256GB Storage", "120Hz Display"],
   },
   {
     id: "p25",
@@ -425,6 +450,7 @@ export const products: Product[] = [
     images: [laptopUltrabook],
     description:
       "Ultra-thin laptop with M3 chip, 16GB RAM, 512GB SSD, stunning Retina display, and all-day battery life.",
+    features: ["M3 Chip", "16GB RAM", "512GB SSD", "Retina Display", "18-Hour Battery"],
     featured: true,
   },
   {
@@ -439,6 +465,7 @@ export const products: Product[] = [
     images: [fitnessTracker],
     description:
       "Smart fitness tracker with heart rate monitoring, sleep tracking, 10-day battery life, and water resistance.",
+    features: ["Heart Rate Monitor", "Sleep Tracking", "10-Day Battery", "IP67 Waterproof", "Step Counter"],
   },
   {
     id: "p27",
@@ -452,6 +479,7 @@ export const products: Product[] = [
     images: [yogaMat],
     description:
       "Non-slip yoga mat with extra cushioning, eco-friendly materials, and carrying strap for easy transport.",
+    features: ["Non-Slip Surface", "6mm Thickness", "Eco-Friendly", "Carrying Strap", "Easy Clean"],
   },
 ];
 
